@@ -87,6 +87,7 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 h1,h2,h3,.num{font-family:var(--display);font-weight:700;letter-spacing:-0.02em;line-height:1.05;margin:0}
+h1,h2,h3{text-wrap:balance}   /* regels van een kop even lang, dus geen eenzaam woord op de laatste regel */
 p{margin:0}
 a{color:inherit}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
@@ -363,9 +364,11 @@ h2{font-size:clamp(26px,3.2vw,38px);max-width:20ch}
 .tab thead th{font-family:var(--display);font-weight:700;font-size:13px;color:var(--ink);
   background:var(--paper);border-bottom:1px solid var(--line);white-space:nowrap}
 .tab tbody th{font-family:var(--display);font-weight:700;font-size:16px;color:var(--ink);white-space:nowrap}
-.tab tr.uit th,.tab tr.uit td{background:var(--tint-go)}
+.tab tr.uitgelicht th,.tab tr.uitgelicht td{background:var(--tint-go)}
 .tab tr:last-child th,.tab tr:last-child td{border-bottom:0}
 .tab-uitleg{margin-top:11px;font-size:14px;color:var(--zinc-dim)}
+.tab-hint{display:none;margin:-6px 0 10px;font-size:13.5px;color:var(--zinc-dim)}
+@media(max-width:820px){.tab-hint{display:block}}
 
 .pol-slot{margin-top:26px;max-width:70ch;font-size:15.5px;color:var(--zinc);
   border-left:3px solid var(--line);padding-left:18px}
@@ -409,7 +412,7 @@ h2{font-size:clamp(26px,3.2vw,38px);max-width:20ch}
     padding:15px 4px;border-bottom:1px solid var(--line-soft)}
 .lr-img{display:flex;flex-direction:column;align-items:center;gap:4px}
 .lr-img svg{width:62px;height:33px;stroke:var(--zinc-dim);fill:none;stroke-linecap:round}
-.lr-img b{font-family:var(--display);font-weight:500;font-size:11.5px;color:var(--zinc-dim);
+.lr-img b{font-family:var(--display);font-weight:500;font-size:12px;color:var(--zinc-dim);
           font-variant-numeric:tabular-nums;letter-spacing:0}
 .lr-cls{display:flex;align-items:center;gap:9px}
 .kab{color:var(--zinc-dim);font-weight:500!important;font-size:13px!important}
@@ -633,6 +636,10 @@ input:focus,select:focus{border-color:var(--oranje);outline:2px solid rgba(232,9
 .vink b{color:var(--ink)}
 .ak-err{color:#a3341c;background:var(--tint-brick);border:1px solid #e3bfae;border-radius:5px;
   padding:11px 14px;font-size:14.5px}
+.foto-fout,.send-fout{margin-top:12px;line-height:1.5}
+.send-fout{font-size:15px}
+.send-fout b,#d-err b{display:block;margin-bottom:3px}
+.send-fout a,#d-err a{color:inherit;font-weight:600;text-decoration:underline}
 .inline-link{color:var(--oranje);text-decoration:underline;padding:0;font-size:inherit;font-family:inherit}
 
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px}
@@ -750,7 +757,7 @@ footer a{color:var(--zinc)}
 .uit{display:none!important}
 .nc-kort{display:none}
 .navlinks button.actief{color:var(--oranje)}
-.menuknop{display:none;align-items:center;gap:8px;padding:9px 12px;border:1px solid var(--line);border-radius:5px;
+.menuknop{display:none;align-items:center;justify-content:center;gap:8px;min-height:44px;min-width:44px;padding:9px 12px;border:1px solid var(--line);border-radius:5px;
   background:var(--card);color:var(--ink);font-weight:600;font-size:15px;font-family:var(--body)}
 .menu-streep{position:relative;display:block;width:18px;height:2px;background:currentColor;border-radius:1px;transition:background .2s}
 .menu-streep::before,.menu-streep::after{content:"";position:absolute;left:0;width:18px;height:2px;background:currentColor;
@@ -914,17 +921,17 @@ footer a{color:var(--zinc)}
           <span class="term-tag">Geen groot bedrag ineens</span>
           <span class="term-k">Huur</span>
           <span class="term-b" id="term36-b"></span>
-          <span class="term-u">Alles inbegrepen: anker, slot, bevestiging, boorwerk en voorrijden. Geen kosten vooraf, je betaalt de eerste maand bij het bestellen. Minimaal 36 maanden, daarna maandelijks opzegbaar.</span>
+          <span class="term-u">Alles inbegrepen: anker, slot, bevestiging, boorwerk en voorrijden. Geen kosten vooraf: je betaalt alleen de eerste maand. Minimaal 36 maanden, daarna maandelijks opzegbaar.</span>
         </button>
       <button type="button" class="term" id="term1" aria-checked="false" role="radio">
           <span class="term-k">In één keer</span>
           <span class="term-b" id="term1-b"></span>
-          <span class="term-u">Je betaalt bij het bestellen met iDEAL en bent na de montage eigenaar.</span>
+          <span class="term-u">Je betaalt met iDEAL en bent na de montage eigenaar.</span>
         </button>
       <button type="button" class="term" id="term3" aria-checked="false" role="radio">
           <span class="term-k">In drie termijnen via in3</span>
           <span class="term-b" id="term3-b"></span>
-          <span class="term-u">Het eerste deel bij het bestellen, de rest na 30 en 60 dagen. in3 handelt de betaling af.</span>
+          <span class="term-u">Drie delen: je betaalt eerst het eerste deel, de rest na 30 en 60 dagen. in3 handelt de betaling af.</span>
         </button>
     </div>
       <p class="hint" id="term-uitleg"></p>
@@ -1056,7 +1063,7 @@ footer a{color:var(--zinc)}
     <div class="cijfers" aria-label="Fietsdiefstal in cijfers">
       <div class="cijfer"><b>928.000</b><span>fietsen gestolen in Nederland in 2023</span><i>CBS, Veiligheidsmonitor</i></div>
       <div class="cijfer"><b>27%</b><span>daarvan verdwijnt voor het huis of uit de tuin</span><i>onderzoek Fietsdiefstal in Nederland</i></div>
-      <div class="cijfer"><b>+6%</b><span>meer diefstal uit schuren en garages in de eerste helft van 2026</span><i>cijfers van een Nederlandse verzekeraar</i></div>
+      <div class="cijfer"><b>+6%</b><span>meer inbraken in boxen, garages en schuren, januari tot en met mei 2026 tegenover een jaar eerder</span><i>politiecijfers, analyse van Overstappen.nl</i></div>
     </div>
     <p class="cijfer-noot">Let op: een fiets die uit je tuin of van je oprit wordt gestolen, valt vaak niet onder je inboedelverzekering, maar alleen onder een fietsverzekering. En die eist dan meestal een tweede slot aan een vast object.</p>
 
@@ -1095,8 +1102,8 @@ footer a{color:var(--zinc)}
     <div class="bakf">
       <p class="eyebrow">Voor bakfietsen</p>
       <h3>Je bakfiets niet meer te verzekeren?</h3>
-      <p>In twaalf steden, waaronder Amsterdam, Den Haag, Leiden en Utrecht, verzekert een grote verzekeraar de Urban Arrow niet meer voor nieuwe klanten. Waar het nog wel kan, is vanaf €3.500 bij alle verzekeraars een tweede ART-2 slot verplicht, vaak samen met een tracker.</p>
-      <p>Maar een tracker zoekt je fiets pas als hij al weg is, en volgens een grote verzekeraar leidt dat maar zelden tot terugvinden. Een anker zorgt dat hij er niet wegkomt. En het is goedkoper dan een stalling: voor een bakfiets betaal je in de grote steden al snel €25 tot €50 per maand. Bij ons staat hij vanaf €7,31 per maand vast aan je eigen gevel.</p>
+      <p>Bright meldde op 26 februari 2025 dat ENRA in twaalf steden, waaronder Amsterdam, Den Haag, Leiden en Utrecht, geen nieuwe Urban Arrow-bakfietsen meer verzekert. Waar het nog wel kan, is bij ENRA voor een elektrische bakfiets een tweede slot van minimaal ART-2 verplicht, en vanaf €3.500 ook een tracker. Andere verzekeraars hebben hun eigen eisen.</p>
+      <p>Maar een tracker zoekt je fiets pas als hij al weg is, en volgens ENRA leidt dat maar zelden tot terugvinden. Een anker zorgt dat hij er niet wegkomt. En het is goedkoper dan een stalling: voor een bakfiets betaal je in de grote steden al snel €25 tot €50 per maand. Bij ons staat hij vanaf €5,72 per maand vast aan je eigen gevel.</p>
     </div>
 
 
@@ -1124,11 +1131,12 @@ footer a{color:var(--zinc)}
       </div>
       <div class="pol-r pol-let">
         <p class="pol-k">Waar een muuranker níét voor is</p>
-        <p>Boven een bepaald bedrag is een geactiveerde track &amp; trace-module verplicht, en daar helpt geen anker tegen. Bij ENRA geldt dat voor bakfietsen al vanaf €3.500 en voor e-bikes vanaf €4.500; ANWB en Kingpolis zitten op €4.500, Fietszeker op €5.000. Let op: het moet een tracker met het <b>Kiwa SCM-keurmerk</b> zijn, mét lopend abonnement — een AirTag of een willekeurige GPS-module telt niet. Bij Fietszeker vervalt je recht op vergoeding als de tracker bij diefstal niet werkte. En dekt je polis geen accuschade als de fiets 's nachts buiten staat, neem de accu dan mee naar binnen. Ook daar helpt geen slot tegen.</p>
+        <p>Boven een bepaald bedrag is een geactiveerde track &amp; trace-module verplicht, en daar helpt geen anker tegen. Bij ENRA geldt dat voor elektrische bakfietsen al vanaf €3.500 en voor e-bikes vanaf €4.500; ANWB en Kingpolis zitten op €4.500, Fietszeker op €5.000. Let op: het moet een tracker met het <b>Kiwa SCM-keurmerk</b> zijn, mét lopend abonnement — een AirTag of een willekeurige GPS-module telt niet. Bij Fietszeker vervalt je recht op vergoeding als de tracker bij diefstal niet werkte. En dekt je polis geen accuschade als de fiets 's nachts buiten staat, neem de accu dan mee naar binnen. Ook daar helpt geen slot tegen.</p>
       </div>
     </div>
 
     <h3 class="tab-kop">Per voertuig op een rij</h3>
+    <p class="tab-hint">Veeg de tabel opzij om alle kolommen te zien.</p>
     <div class="tab-scroll">
       <table class="tab">
         <thead>
@@ -1149,26 +1157,26 @@ footer a{color:var(--zinc)}
             <td>Verschilt. ANWB eist wiel én frame aan een vast object; ENRA schrijft het niet voor</td>
             <td>Vanaf €4.500, met Kiwa SCM-keurmerk</td>
           </tr>
-          <tr class="uit">
+          <tr class="uitgelicht">
             <th scope="row">E-bakfiets</th>
             <td>ART-2</td>
             <td>Altijd, minimaal ART-2</td>
             <td>Nh1816 eist een aard- of nagelvast object. ANWB eist het ook</td>
             <td>Bij ENRA al vanaf €3.500</td>
           </tr>
-          <tr class="uit">
+          <tr class="uitgelicht">
             <th scope="row">Scooter en brommer</th>
             <td>ART-3</td>
             <td>Vaak aangeraden, niet altijd verplicht</td>
             <td>InShared: vast aan een in de grond verankerd voorwerp, anders €400 eigen risico</td>
             <td>Soms, per model</td>
           </tr>
-          <tr class="uit">
+          <tr class="uitgelicht">
             <th scope="row">Motor</th>
             <td>ART-4, bij dure motoren ART-5</td>
             <td>Naast het stuurslot</td>
             <td>Staat hij buiten, dan eisen InShared en de KNMV bevestiging aan de vaste wereld. Univé noemt een muur- of vloeranker</td>
-            <td>Vaak een SCM klasse 1 alarm</td>
+            <td>Vaak een startonderbreker (SCM klasse 1)</td>
           </tr>
         </tbody>
       </table>
@@ -1329,6 +1337,7 @@ footer a{color:var(--zinc)}
               </div>
             </div>
           </div>
+          <p class="ak-err foto-fout" id="foto-fout1" role="alert" hidden></p>
           <p class="hint">Met een foto en een kruisje weten we precies waar we moeten zijn. Zonder foto bellen we je even. Huur je je woning? Regel dan vooraf even toestemming van je verhuurder of VvE — wij boren op jouw aanwijzing.</p>
         </div>
 
@@ -1356,6 +1365,7 @@ footer a{color:var(--zinc)}
               </div>
             </div>
           </div>
+          <p class="ak-err foto-fout" id="foto-fout2" role="alert" hidden></p>
           <p class="hint">Met een foto en een kruisje weten we precies waar we moeten zijn. Zonder foto bellen we je even.</p>
         </div>
 
@@ -1388,12 +1398,13 @@ footer a{color:var(--zinc)}
 
       <div class="eind">
         <div>
-          <p class="eind-lab" id="eind-lab">Nu te betalen, inclusief btw</p>
+          <p class="eind-lab" id="eind-lab">Eerste betaling, inclusief btw</p>
           <p class="eind-tot" id="eind-tot">€99,95</p>
         </div>
-        <button class="btn btn-pay" type="button" id="betaal">Bestellen en betalen</button>
+        <button class="btn btn-pay" type="button" id="betaal">Bestellen met betalingsverplichting</button>
       </div>
-      <p class="hint">Je betaalt bij het bestellen: in één keer met iDEAL, het eerste deel via in3, of bij huur de eerste maand. Kan het anker niet op de plek die jij aanwijst, dan monteren we niet en krijg je je geld volledig terug.</p>
+      <div class="ak-err send-fout" id="send-fout" role="alert" hidden></div>
+      <p class="hint" id="betaal-hint">Na je bestelling krijg je een betaallink per e-mail: voor iDEAL, voor het eerste deel via in3, of bij huur voor de eerste maand. Kan het anker niet op de plek die jij aanwijst, dan monteren we niet en krijg je je geld volledig terug.</p>
       <button type="button" class="link" id="terug2">Terug naar je gegevens</button>
     </div>
 
@@ -1543,7 +1554,7 @@ footer a{color:var(--zinc)}
       </div>
       <div>
         <p class="foot-k">Bedrijfsgegevens</p>
-        <p>Alle prijzen inclusief btw. Betalen met iDEAL, in drie termijnen via in3, of huren.</p>
+        <p>Alle prijzen inclusief btw. Na je bestelling krijg je een betaallink per e-mail. Betalen kan met iDEAL, in drie termijnen via in3, of door te huren.</p>
       </div>
       <div>
         <p class="foot-k">Klantinformatie</p>
@@ -1801,13 +1812,13 @@ function zetMaat(m){
 function bedragTekst(kort){
   /* wat de klant ziet: eenmalig, drie termijnen of huur */
   if(betaalwijze === 'huur') return euro(huurPm()) + (kort ? ' p/m' : ' per maand');
-  if(betaalwijze === 'drie') return '3 × ' + euro(perMaand());
+  if(betaalwijze === 'drie') return in3Tekst();
   return euro(totaal());
 }
 function nuTeBetalen(){
-  /* wat er bij het bestellen wordt afgerekend */
+  /* het eerste bedrag dat je betaalt */
   if(betaalwijze === 'huur') return euro(huurPm());   /* eerste maand = machtiging */
-  if(betaalwijze === 'drie') return euro(perMaand());
+  if(betaalwijze === 'drie') return ctEuro(in3().eerste);
   return euro(totaal());
 }
 
@@ -1821,19 +1832,19 @@ function knoppen(){
     byId('balk').hidden = bijBestellen;
   }
   var p = byId('betaal');
-  if(p && !p.disabled) p.textContent = 'Bestellen en ' + nuTeBetalen() + ' betalen';
+  if(p && !p.disabled) p.textContent = 'Bestellen met betalingsverplichting';
   var el = byId('eind-lab'), et = byId('eind-tot');
   if(el && et){
-    el.textContent = betaalwijze === 'huur' ? 'Nu te betalen: de eerste maand, inclusief btw'
-                   : betaalwijze === 'drie' ? 'Nu te betalen: het eerste deel via in3, inclusief btw'
-                   : 'Nu te betalen met iDEAL, inclusief btw';
+    el.textContent = betaalwijze === 'huur' ? 'Eerste betaling: de eerste maand, inclusief btw'
+                   : betaalwijze === 'drie' ? 'Eerste betaling: het eerste deel via in3, inclusief btw'
+                   : 'Totaal om te betalen met iDEAL, inclusief btw';
     et.textContent = nuTeBetalen();
   }
 }
 function betaalTekst(){
   /* zoals de klant het in het overzicht leest */
   if(betaalwijze === 'huur') return 'Huur, ' + euro(huurPm()) + ' per maand, minimaal 36 maanden';
-  if(betaalwijze === 'drie') return 'In drie termijnen via in3, 3 × ' + euro(perMaand());
+  if(betaalwijze === 'drie') return 'In drie termijnen via in3, ' + in3Tekst();
   return 'In één keer met iDEAL, ' + euro(totaal());
 }
 
@@ -1864,7 +1875,17 @@ byId('alles').addEventListener('click', function(){
   });
 });
 
-function perMaand(){ return Math.round(totaal() / TERMIJNEN * 100) / 100; }
+/* in3: drie termijnen. Gaat het niet precies op, dan vangt het eerste deel de rest op (hooguit een cent verschil). */
+function in3(){
+  var t = totaalCt(), rest = Math.round(t / TERMIJNEN);
+  return {eerste: t - (TERMIJNEN - 1) * rest, rest: rest};
+}
+function in3Tekst(maal){
+  var d = in3(), x = maal || '×';
+  return d.eerste === d.rest
+    ? TERMIJNEN + ' ' + x + ' ' + ctEuro(d.rest)
+    : ctEuro(d.eerste) + ' + ' + (TERMIJNEN - 1) + ' ' + x + ' ' + ctEuro(d.rest);
+}
 
 function termijnen(){
   [['term1','eens'], ['term3','drie'], ['term36','huur']].forEach(function(p){
@@ -1873,15 +1894,15 @@ function termijnen(){
     byId(p[0]).classList.toggle('on', aan);
   });
   byId('term1-b').textContent  = euro(totaal());
-  byId('term3-b').textContent  = '3 × ' + euro(perMaand());
+  byId('term3-b').textContent  = in3Tekst();
   byId('term36-b').textContent = euro(huurPm()) + ' per maand';
 
   var sl = gekozenSlot || slotById('geen');
   byId('term-uitleg').textContent = betaalwijze === 'huur'
-    ? 'Montage is gratis. Je betaalt ' + euro(huurPm()) + ' per maand, de eerste maand bij het bestellen. '
+    ? 'Montage is gratis. Je betaalt ' + euro(huurPm()) + ' per maand, te beginnen met de eerste maand: de betaallink krijg je na je bestelling per e-mail. '
       + 'Minimaal 36 maanden, daarna maandelijks opzegbaar. Anker en slot blijven van Muurslot: zeg je op, dan halen we ze op voor ' + euro(HUUR_OPHALEN) + '. '
       + 'Verhuis je, dan kan de huur over naar de nieuwe bewoner.'
-    : 'Je betaalt bij het bestellen. Kan het anker niet op de plek die jij aanwijst, dan krijg je je geld volledig terug.';
+    : 'Na je bestelling krijg je een betaallink per e-mail. Kan het anker niet op de plek die jij aanwijst, dan krijg je je geld volledig terug.';
 }
 
 var gekozenSlot2 = null;
@@ -1913,7 +1934,7 @@ function vulTweeSlot(){
     btn.className = 'twee-opt' + (o.id === start ? ' on' : '');
     btn.dataset.id = o.id;
     btn.innerHTML = '<span class="twee-opt-naam">' + (sl.prijs ? slotNaam(sl) : 'Geen slot') + '</span>'
-      + '<span class="twee-opt-pr">' + prijsLabel(sl.prijs) + '</span>';
+      + '<span class="twee-opt-pr">' + labelTweedeSlot(sl.prijs) + '</span>';
     btn.addEventListener('click', function(){
       Array.prototype.forEach.call(cont.children, function(x){ x.classList.remove('on'); });
       btn.classList.add('on');
@@ -1990,8 +2011,8 @@ function verzamel(){
     postcode: byId('f-pc').value.trim(),
     voertuig: huidig ? huidig.naam : 'niet opgegeven',
     ankers:   tweeAan ? '2 (tweede anker ' + euro(MONTAGE_2) + ', slot ' + (gekozenSlot2 && gekozenSlot2.prijs ? slotNaam(gekozenSlot2) + ' ' + euro(gekozenSlot2.prijs) : 'geen') + ')' : '1',
-    betaling: betaalwijze === 'drie' ? 'drie termijnen via in3, 3 x ' + euro(perMaand())
-            : betaalwijze === 'huur' ? 'huur: montage gratis, ' + euro(huurPm()) + ' per maand (eerste maand bij bestelling), minimaal 36 maanden, ophalen bij opzeggen ' + euro(HUUR_OPHALEN)
+    betaling: betaalwijze === 'drie' ? 'drie termijnen via in3, ' + in3Tekst('x')
+            : betaalwijze === 'huur' ? 'huur: montage gratis, ' + euro(huurPm()) + ' per maand (eerste maand via betaallink), minimaal 36 maanden, ophalen bij opzeggen ' + euro(HUUR_OPHALEN)
             : 'in een keer, ' + euro(totaal()),
     slotId:   gekozenSlot ? gekozenSlot.id : 'geen',
     slot:     gekozenSlot && gekozenSlot.prijs
@@ -2021,7 +2042,7 @@ function toonBevestiging(d){
   byId('done').scrollIntoView({behavior:'smooth', block:'center'});
 }
 
-function viaMailprogramma(d){
+function mailLink(d){
   var regels = [
     'Naam: '            + d.naam,
     'Telefoon: '        + d.telefoon,
@@ -2035,17 +2056,17 @@ function viaMailprogramma(d){
     'Betaling: '        + d.betaling,
     '',
     'Akkoord: '         + d.akkoord,
-    'Betaalmoment: '   + 'bij het bestellen',
     'Toestemming muur: '+ d.toestemming,
     'Plek 1: '          + d.plek,
     'Kruisje plek 1: '  + d.kruisje,
     '',
     'Verstuurd via muurslot.com'
   ].join('\n');
-  window.location.href = 'mailto:' + ONS_MAILADRES +
+  return 'mailto:' + ONS_MAILADRES +
     '?subject=' + encodeURIComponent('Montage-aanvraag: ' + d.voertuig + ' — ' + d.naam) +
     '&body='    + encodeURIComponent(regels);
 }
+function viaMailprogramma(d){ window.location.href = mailLink(d); }
 
 /* ---------- kettingschets ----------
    Tekent drie schakels op schaal. De dikte is de echte schakeldikte in mm,
@@ -2084,7 +2105,7 @@ SLOTEN.forEach(function(sl){
     '<span class="lr-len">' + (sl.opMaat ? '5 tot 100\u00a0m' : sl.lengte.replace(' ', '\u00a0')) + '</span>' +
     '<span class="lr-for">' + sl.voor + '</span>' +
     '<span class="lr-pr">' + (sl.opMaat ? 'vanaf ' : '') +
-      euro(Math.round((MONTAGE + (sl.opMaat ? kabelPrijs(5) : sl.prijs)) / 36 * HUUR_OPSLAG * 100) / 100) +
+      ctEuro(huurCt(ct(MONTAGE) + ct(sl.opMaat ? kabelPrijs(5) : sl.prijs))) +
       '<b class="lr-pm">per maand, met anker</b></span>';
   ladder.appendChild(r);
 });
@@ -2128,7 +2149,7 @@ function toonOpties(v){
         '<span class="opt-tag' + (o.advies ? ' is-advies' : '') + '">' + o.tag + '</span>' +
         (sl.adviesprijs ? '<span class="opt-adv">Adviesprijs ' + euro(sl.adviesprijs) + '. Jij krijgt 10% korting.</span>' : '') +
       '</span>' +
-      '<span class="opt-pr">' + prijsLabel(sl.prijs) + '</span>';
+      '<span class="opt-pr">' + labelSlot(sl.prijs) + '</span>';
     b.addEventListener('click', function(){ kiesSlot(sl.id); });
     opts.appendChild(b);
   });
@@ -2150,11 +2171,12 @@ function herbereken(){
   var sl  = gekozenSlot || slotById('geen');
   var tot = totaal();
   var sl2 = gekozenSlot2 || slotById('geen');
-  byId('twee-pr').textContent = prijsLabel(MONTAGE_2 + sl2.prijs);
+  byId('twee-pr').textContent = labelTweedeAnker(sl2.prijs);
   termijnen();
+  if(tweeAan) werkTweeSlotsBij();
   byId('twee-uitleg').innerHTML = betaalwijze === 'huur'
     ? 'Een tweede anker kost minder, omdat we er toch staan. '
-      + (sl2.prijs ? 'Met het tweede slot erbij' : 'Zonder slot') + ' komt er <b>' + euro(perMaandVan(MONTAGE_2 + sl2.prijs)) + ' per maand</b> bij.'
+      + (sl2.prijs ? 'Met het tweede slot erbij' : 'Zonder slot') + ' komt er <b>' + ctEuro(tweedeAnkerCt(sl2.prijs)) + ' per maand</b> bij.'
     : 'Tweede anker <b>' + euro(MONTAGE_2) + '</b> in plaats van '
       + '<s>' + euro(MONTAGE) + '</s>, omdat we er toch staan'
       + (sl2.prijs ? ', plus ' + euro(sl2.prijs) + ' voor het tweede slot' : '') + '.';
@@ -2255,36 +2277,60 @@ function vulRecap(){
   if(betaalwijze === 'huur'){
     h += regel('Waarde van je bestelling', euro(totaal()));
     h += regel('Montage', 'gratis');
-    h += '<div class="tot"><span>Nu te betalen, eerste maand</span><b>' + euro(huurPm()) + '</b></div>';
+    h += '<div class="tot"><span>Eerste betaling, de eerste maand</span><b>' + euro(huurPm()) + '</b></div>';
     h += regel('Daarna per maand, minimaal 36 maanden', euro(huurPm()));
     h += regel('Ophalen als je opzegt', euro(HUUR_OPHALEN));
   } else if(betaalwijze === 'drie'){
     h += '<div class="tot"><span>Samen</span><b>' + euro(totaal()) + '</b></div>';
-    h += regel('Via in3, nu het eerste deel', '3 × ' + euro(perMaand()));
+    h += regel('Via in3, in drie delen', in3Tekst());
   } else {
-    h += '<div class="tot"><span>Nu te betalen</span><b>' + euro(totaal()) + '</b></div>';
+    h += '<div class="tot"><span>Totaal</span><b>' + euro(totaal()) + '</b></div>';
   }
   byId('recap-lines').innerHTML = h;
 }
 
 function aantal(){ return tweeAan ? 2 : 1; }
 
-/* huur per maand: totaal gedeeld door 36, plus 15% */
-function prijsLabel(bedrag){
-  /* bij huur tonen we wat het per maand scheelt, anders het eenmalige bedrag */
-  if(!bedrag) return betaalwijze === 'huur' ? '€0 p/m' : '€0';
-  return betaalwijze === 'huur'
-    ? '+ ' + euro(perMaandVan(bedrag)) + ' p/m'
-    : '+ ' + euro(bedrag);
-}
-function perMaandVan(bedrag){ return Math.round(bedrag / 36 * HUUR_OPSLAG * 100) / 100; }
-function huurPm(){ return Math.round(totaal() / 36 * HUUR_OPSLAG * 100) / 100; }
+/* ---------- rekenen in hele centen ----------
+   Wat je op het scherm optelt, moet ook echt optellen. Daarom rekenen we in hele centen.
+   De huur wordt voor de hele bestelling afgerond (totaal / 36 maanden, x 1,15). Wat er voor een slot of
+   een tweede anker bij komt, is het verschil tussen twee afgeronde totalen: basis plus extra is dus altijd
+   precies het totaal. Bij in3 vangt het eerste deel de rest op (zie in3()). */
+function ct(x){ return Math.round((x || 0) * 100); }
+function ctEuro(c){ return euro(c / 100); }
+function huurCt(totCt){ return Math.round(totCt / 36 * HUUR_OPSLAG); }
+function slotCt(sl){ return sl && sl.prijs ? ct(sl.prijs) : 0; }
 
-function totaal(){
-  var sl  = gekozenSlot  || slotById('geen');
-  var sl2 = tweeAan ? (gekozenSlot2 || slotById('geen')) : slotById('geen');
-  return MONTAGE + sl.prijs
-       + (tweeAan ? MONTAGE_2 + sl2.prijs : 0);
+function totaalCt(){
+  return ct(MONTAGE) + slotCt(gekozenSlot)
+       + (tweeAan ? ct(MONTAGE_2) + slotCt(gekozenSlot2) : 0);
+}
+function totaal(){ return totaalCt() / 100; }
+function huurPm(){ return huurCt(totaalCt()) / 100; }
+
+/* wat er bij komt als je 'extra' (centen) op 'basis' (centen) zet: bij huur het verschil per maand, anders het bedrag zelf */
+function extraCt(extra, basis){
+  return betaalwijze === 'huur' ? huurCt(basis + extra) - huurCt(basis) : extra;
+}
+function plusTekst(c){
+  var huur = betaalwijze === 'huur';
+  if(!c) return huur ? '€0 p/m' : '€0';
+  return '+ ' + ctEuro(c) + (huur ? ' p/m' : '');
+}
+function eersteBasisCt(){ return ct(MONTAGE) + slotCt(gekozenSlot); }   /* eerste anker met zijn slot */
+function labelSlot(prijs){ return plusTekst(extraCt(ct(prijs), ct(MONTAGE))); }
+function tweedeAnkerCt(prijs2){ return extraCt(ct(MONTAGE_2) + ct(prijs2), eersteBasisCt()); }
+function labelTweedeAnker(prijs2){ return plusTekst(tweedeAnkerCt(prijs2)); }
+function labelTweedeSlot(prijs2){ return plusTekst(extraCt(ct(prijs2), eersteBasisCt() + ct(MONTAGE_2))); }
+
+/* de bedragen bij de sloten van het tweede anker meebewegen als het eerste slot verandert */
+function werkTweeSlotsBij(){
+  Array.prototype.forEach.call(byId('twee-slot-opties').children, function(btn){
+    var sl = slotById(btn.dataset.id);
+    var naam = btn.querySelector('.twee-opt-naam'), pr = btn.querySelector('.twee-opt-pr');
+    if(naam) naam.textContent = sl.prijs ? slotNaam(sl) : 'Geen slot';
+    if(pr)   pr.textContent   = labelTweedeSlot(sl.prijs);
+  });
 }
 
 function vulCheck(){
@@ -2304,14 +2350,26 @@ function vulCheck(){
 
 /* ---------- foto kiezen en de plek aanwijzen ----------
    Eén bouwer, twee keer gebruikt: plek 1 en plek 2. */
+var MAX_ORIGINEEL  = 25 * 1024 * 1024;   /* grootste foto die iemand kan kiezen; hij wordt toch verkleind */
+var MAX_ZIJDE      = 1600;               /* langste zijde van de foto die we versturen, in pixels */
+var MAX_ONVERKLEIND = 3 * 1024 * 1024;   /* lukt verkleinen niet, dan gaat de originele foto alleen mee als hij zo klein is */
+
 function maakPlek(n){
   var P = { foto:null, merk:null, n:n };
   var el = function(id){ return byId(id + n); };
+
+  /* melding bij de foto zelf, in de pagina (geen popup) */
+  function fotoFout(tekst){
+    var m = el('foto-fout');
+    m.textContent = tekst || '';
+    m.hidden = !tekst;
+  }
 
   el('drop-btn').addEventListener('click',  function(){ el('f-foto').click(); });
   el('drop-btn2').addEventListener('click', function(){ el('f-foto').click(); });
 
   P.toon = function(f){
+    fotoFout('');
     P.foto = f; P.merk = null;
     var lezer = new FileReader();
     lezer.onload = function(ev){
@@ -2367,14 +2425,25 @@ function maakPlek(n){
     zetKruis(x, y);
   });
 
-  el('f-foto').addEventListener('change', function(){
-    var f = this.files && this.files[0];
-    if(!f) return;
-    if(f.size > 8*1024*1024){
-      alert('Die foto is groter dan 8 MB. Maak hem wat kleiner of stuur hem later per e-mail.');
-      P.weg(); return;
+  function neem(f){
+    if(f.size > MAX_ORIGINEEL){
+      P.weg();
+      fotoFout('Die foto is groter dan 25 MB. Kies een kleinere foto, of stuur hem later per e-mail.');
+      return;
     }
     P.toon(f);
+  }
+
+  el('f-foto').addEventListener('change', function(){
+    var f = this.files && this.files[0];
+    if(f) neem(f);
+  });
+
+  /* een foto die de browser niet kan laten zien (bijvoorbeeld HEIC op een computer) */
+  el('drop-prev').addEventListener('error', function(){
+    if(!P.foto) return;
+    P.weg();
+    fotoFout('Deze foto kunnen we niet laten zien. Kies een foto als JPG of PNG.');
   });
 
   ['dragover','dragenter'].forEach(function(t){
@@ -2385,35 +2454,47 @@ function maakPlek(n){
   });
   el('drop').addEventListener('drop', function(e){
     var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-    if(f && f.type.indexOf('image/') === 0) P.toon(f);
+    if(f && f.type.indexOf('image/') === 0) neem(f);
   });
 
-  /* Het kruisje in de foto branden, zodat het meegaat naar jouw mailbox. */
+  /* De foto verkleinen en het kruisje erin branden. Verkleinen is nodig: een foto van een telefoon is al snel
+     4 tot 6 MB, en Netlify neemt maximaal 8 MB per bestelling aan. Met 1600 pixels aan de lange kant blijft
+     er ruim genoeg te zien en is een foto zo'n halve MB. Roept klaar(gelukt, bestand) aan. */
   P.metKruis = function(klaar){
-    if(!P.foto) return klaar(null);
-    if(!P.merk) return klaar(P.foto);
+    if(!P.foto) return klaar(true, null);
+    var terug = function(){   /* verkleinen lukte niet: de originele foto gaat alleen mee als hij klein genoeg is */
+      klaar(P.foto.size <= MAX_ONVERKLEIND, P.foto);
+    };
     var img = new Image();
     img.onload = function(){
-      var c = document.createElement('canvas');
-      c.width = img.naturalWidth; c.height = img.naturalHeight;
-      var g = c.getContext('2d');
-      g.drawImage(img, 0, 0);
-      var x = P.merk.x * c.width, y = P.merk.y * c.height;
-      var r = Math.max(18, Math.min(c.width, c.height) * 0.055);
-      g.lineCap = 'round';
-      [['#ffffff', r*0.34], ['#c8341a', r*0.17]].forEach(function(laag){
-        g.strokeStyle = laag[0]; g.lineWidth = laag[1];
-        g.beginPath(); g.arc(x, y, r, 0, Math.PI*2); g.stroke();
-        g.beginPath();
-        g.moveTo(x - r*0.62, y - r*0.62); g.lineTo(x + r*0.62, y + r*0.62);
-        g.moveTo(x + r*0.62, y - r*0.62); g.lineTo(x - r*0.62, y + r*0.62);
-        g.stroke();
-      });
-      c.toBlob(function(blob){
-        klaar(blob ? new File([blob], 'plek-' + n + '-met-kruisje.jpg', {type:'image/jpeg'}) : P.foto);
-      }, 'image/jpeg', 0.88);
+      try{
+        var w = img.naturalWidth, h = img.naturalHeight;
+        if(!w || !h) return terug();
+        var s = Math.min(1, MAX_ZIJDE / Math.max(w, h));
+        var c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(w * s)); c.height = Math.max(1, Math.round(h * s));
+        var g = c.getContext('2d');
+        g.drawImage(img, 0, 0, c.width, c.height);
+        if(P.merk){
+          var x = P.merk.x * c.width, y = P.merk.y * c.height;
+          var r = Math.max(18, Math.min(c.width, c.height) * 0.055);
+          g.lineCap = 'round';
+          [['#ffffff', r*0.34], ['#c8341a', r*0.17]].forEach(function(laag){
+            g.strokeStyle = laag[0]; g.lineWidth = laag[1];
+            g.beginPath(); g.arc(x, y, r, 0, Math.PI*2); g.stroke();
+            g.beginPath();
+            g.moveTo(x - r*0.62, y - r*0.62); g.lineTo(x + r*0.62, y + r*0.62);
+            g.moveTo(x + r*0.62, y - r*0.62); g.lineTo(x - r*0.62, y + r*0.62);
+            g.stroke();
+          });
+        }
+        c.toBlob(function(blob){
+          if(!blob) return terug();
+          klaar(true, new File([blob], 'plek-' + n + (P.merk ? '-met-kruisje' : '') + '.jpg', {type:'image/jpeg'}));
+        }, 'image/jpeg', 0.85);
+      }catch(e){ terug(); }
     };
-    img.onerror = function(){ klaar(P.foto); };
+    img.onerror = terug;
     img.src = el('drop-prev').src;
   };
 
@@ -2495,32 +2576,50 @@ byId('betaal').addEventListener('click', function(){
     scrollNaar(byId('done'));
   }
 
+  /* Mislukt het versturen, dan zeggen we dat eerlijk, laten alles staan en bieden een andere weg aan.
+     Het is dus nooit zo dat er "Gelukt" staat terwijl we niets ontvangen hebben. */
+  var fout = byId('send-fout');
+  fout.hidden = true;
+  function mislukt(foto){
+    fout.innerHTML = foto
+      ? '<b>We konden je foto niet klein genoeg maken om te versturen.</b>'
+        + 'Ga terug naar je gegevens, haal de foto weg en probeer het nog eens. Stuur de foto daarna per e-mail naar ' + ONS_MAILADRES + '.'
+      : '<b>Het versturen is niet gelukt.</b>'
+        + 'Je gegevens staan nog hier. Probeer het over een paar minuten nog eens. '
+        + 'Lukt het dan weer niet, bel ons op <a href="tel:+31629471533">06 29 47 15 33</a> of '
+        + '<a href="' + mailLink(d) + '">stuur je bestelling per e-mail</a>.';
+    fout.hidden = false;
+    knop.disabled = false; knoppen();
+    fout.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+
   if(BETAAL_ENDPOINT){
     knop.disabled = true; knop.textContent = 'Even geduld…';
     fetch(BETAAL_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify(d)})
       .then(function(r){ return r.json(); })
       .then(function(j){ if(j && j.url){ window.location.href = j.url; } else { throw 0; } })
-      .catch(function(){
-        knop.disabled = false; knoppen();
-        viaMailprogramma(d); klaar();
-      });
+      .catch(function(){ mislukt(false); });
     return;
   }
 
   if(FORM_ENDPOINT){
     knop.disabled = true; knop.textContent = 'Versturen…';
-    PLEK[0].metKruis(function(b1){
-     PLEK[1].metKruis(function(b2){
+    PLEK[0].metKruis(function(ok1, b1){
+     PLEK[1].metKruis(function(ok2, b2){
+      if(!ok1 || (tweeAan && !ok2)) return mislukt(true);
       var fd = new FormData();
       fd.append('form-name', 'bestelling');
       Object.keys(d).forEach(function(k){ fd.append(k, d[k]); });
       if(b1) fd.append('foto1', b1);
       if(b2 && tweeAan) fd.append('foto2', b2);
       fetch(FORM_ENDPOINT, {method:'POST', headers:{'Accept':'application/json'}, body:fd})
-        .then(function(r){ if(!r.ok) throw 0; klaar(); })
-        .catch(function(){ viaMailprogramma(d); klaar(); })
-        .then(function(){ knop.disabled = false; knoppen(); });
+        .then(function(r){ return r.ok; }, function(){ return false; })
+        .then(function(gelukt){
+          if(!gelukt) return mislukt(false);
+          klaar();
+          knop.disabled = false; knoppen();
+        });
      });
     });
     return;
@@ -2602,7 +2701,7 @@ var DOCS = {
   vw: ['Algemene voorwaarden', ''
     + '<p><b>Wie wij zijn.</b> Muurslot, Sassenheim, info@muurslot.com, 06 29 47 15 33.</p>'
     + '<p><b>Wat wij doen.</b> Wij leveren en monteren een ART-4 muuranker op een door jou aangewezen plek, en verkopen kettingsloten en kabelsloten. Anker en slot kun je kopen of huren. Alle prijzen zijn inclusief btw.</p>'
-    + '<p><b>Betaling.</b> Je betaalt bij het bestellen en kiest uit drie vormen. <b>In één keer</b> met iDEAL; na de montage ben je eigenaar van het anker. <b>In drie termijnen via in3</b>: het eerste deel bij het bestellen, de rest na 30 en 60 dagen. Je sluit daarvoor een overeenkomst met in3, dat de betaling afhandelt. <b>Huur</b>: de montage is gratis; je betaalt een vast bedrag per maand via automatische incasso, de eerste maand bij het bestellen. Dat maandbedrag staat bij je bestelling vermeld.</p>'
+    + '<p><b>Betaling.</b> Na je bestelling krijg je een betaallink per e-mail. Je kiest uit drie vormen. <b>In één keer</b> met iDEAL; na de montage ben je eigenaar van het anker. <b>In drie termijnen via in3</b>: eerst het eerste deel, de rest na 30 en 60 dagen. Je sluit daarvoor een overeenkomst met in3, dat de betaling afhandelt. <b>Huur</b>: de montage is gratis; je betaalt een vast bedrag per maand via automatische incasso, te beginnen met de eerste maand. Dat maandbedrag staat bij je bestelling vermeld.</p>'
     + '<p><b>Huur.</b> De huur geldt voor minimaal 36 maanden en loopt daarna voor onbepaalde tijd door, maandelijks opzegbaar met een opzegtermijn van één maand. Anker en slot blijven eigendom van Muurslot; je kunt ze niet overnemen. Zeg je op, dan halen wij anker en slot op; daarvoor rekenen wij eenmalig €25. Verhuis je, dan kan de huur worden overgedragen aan de nieuwe bewoner. Wordt een maandbedrag niet betaald, dan sturen wij eerst een herinnering met een termijn van veertien dagen voordat wij incassokosten in rekening brengen, zoals de wet voorschrijft.</p>'
     + '<p><b>Terugbetaling.</b> Kan het anker niet worden geplaatst op de plek die jij aanwees, of herroep je vóór de montage, dan betalen wij het volledige bedrag binnen veertien dagen terug.</p>'
     + '<p><b>Uitvoering.</b> Wij bepalen ter plekke welke bevestiging de ondergrond nodig heeft, mechanisch of chemisch, zonder meerprijs. Wij spreken de montagedag vooraf met je af. Je hoeft niet thuis te zijn. Blijkt de ondergrond op de door jou aangewezen plek ongeschikt, dan monteren wij niet en krijg je je geld volledig terug.</p>'
@@ -2753,12 +2852,23 @@ byId('d-stuur').addEventListener('click', function(){
     'Aangemeld op ' + new Date().toLocaleString('nl-NL') + ' via muurslot.com'
   ].join('\n');
 
-  var dealerMail = function(){
-    window.location.href = 'mailto:' + ONS_MAILADRES +
-      '?subject=' + encodeURIComponent('Dealeropdracht ' + byId('d-code').value.trim() + ' — ' + byId('d-knaam').value.trim()) +
-      '&body='    + encodeURIComponent(regels);
-  };
+  var dealerLink = 'mailto:' + ONS_MAILADRES +
+    '?subject=' + encodeURIComponent('Dealeropdracht ' + byId('d-code').value.trim() + ' — ' + byId('d-knaam').value.trim()) +
+    '&body='    + encodeURIComponent(regels);
+
+  /* "Bedankt" staat pas in beeld als de opdracht echt binnen is. Lukt het niet, dan zeggen we dat. */
+  function dealerKlaar(){
+    byId('d-done-txt').textContent =
+      'Bedankt. Zet ' + euro(g.bon) + ' op de bon van ' + byId('d-knaam').value.trim() +
+      '. Wij nemen binnen een werkdag contact op om de plek af te stemmen en de montagedag in te plannen. ' +
+      'Daarna sturen we jou een factuur van ' + euro(g.fact) + ', je commissie van ' + euro(g.com) + ' is er dan al vanaf.';
+    byId('d-done').classList.add('on');
+    scrollNaar(byId('d-done'));
+  }
+
   if(FORM_ENDPOINT){
+    var knopD = byId('d-stuur');
+    knopD.disabled = true; knopD.textContent = 'Versturen…';
     var fdd = new FormData();
     fdd.append('form-name', 'dealer');
     fdd.append('dealercode', byId('d-code').value.trim());
@@ -2766,18 +2876,22 @@ byId('d-stuur').addEventListener('click', function(){
     fdd.append('klant', byId('d-knaam').value.trim());
     fdd.append('opdracht', regels);
     fetch(FORM_ENDPOINT, {method:'POST', headers:{'Accept':'application/json'}, body:fdd})
-      .then(function(r){ if(!r.ok) throw 0; })
-      .catch(dealerMail);
+      .then(function(r){ return r.ok; }, function(){ return false; })
+      .then(function(gelukt){
+        knopD.disabled = false; knopD.textContent = 'Opdracht aanmelden';
+        if(gelukt){ dealerKlaar(); return; }
+        var e = byId('d-err');
+        e.innerHTML = '<b>Het versturen is niet gelukt.</b>'
+          + 'Je gegevens staan nog hier. Probeer het over een paar minuten nog eens. '
+          + 'Lukt het dan weer niet, bel ons op <a href="tel:+31629471533">06 29 47 15 33</a> of '
+          + '<a href="' + dealerLink + '">mail de opdracht</a>.';
+        e.hidden = false;
+        e.scrollIntoView({behavior:'smooth', block:'center'});
+      });
   } else {
-    dealerMail();
+    window.location.href = dealerLink;
+    dealerKlaar();
   }
-
-  byId('d-done-txt').textContent =
-    'Bedankt. Zet ' + euro(g.bon) + ' op de bon van ' + byId('d-knaam').value.trim() +
-    '. Wij nemen binnen een werkdag contact op om de plek af te stemmen en de montagedag in te plannen. ' +
-    'Daarna sturen we jou een factuur van ' + euro(g.fact) + ', je commissie van ' + euro(g.com) + ' is er dan al vanaf.';
-  byId('d-done').classList.add('on');
-  scrollNaar(byId('d-done'));
 });
 
 /* balk verbergen zodra het bestelblok in beeld staat */
