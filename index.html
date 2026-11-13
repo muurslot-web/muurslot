@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="image" href="img/muuranker-gevel.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="img/muuranker-gevel-800.jpg" media="(max-width: 699px)" fetchpriority="high">
+<link rel="preload" as="image" href="img/muuranker-gevel.jpg" media="(min-width: 700px)" fetchpriority="high">
 <title>Muuranker laten monteren in heel Nederland | Muurslot</title>
 <meta name="description" content="ART-4 muuranker aan huis gemonteerd: vanaf €3,19 per maand met gratis montage, of €99,95 in één keer. Overal in Nederland dezelfde prijs.">
 <meta name="robots" content="index,follow">
@@ -48,6 +49,8 @@
 }
 </script>
 
+<link rel="preload" href="/fonts/archivo-700-v1.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/sourcesans-400-v1.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/site.css">
 <script src="js/gedeeld.js" defer></script>
 <script src="js/prijzen.js" defer></script>
@@ -66,6 +69,7 @@
 })();
 </script>
 <div class="page">
+<p class="dicht-balk"><b>Bestellen kan nog niet.</b> Lees gerust rond en bekijk wat het kost.</p>
 <nav class="nav" aria-label="Hoofdmenu">
   <div class="wrap">
     <a class="brand" href="/" aria-label="Muurslot, naar de start">
@@ -114,14 +118,14 @@
     </div>
   </div>
   <div class="hero-photo" id="carousel" aria-roledescription="carousel" aria-label="Wat wij monteren">
-    <div class="cara" id="cara"></div>
+    <div class="cara" id="cara"><div class="cara-s on cara-start" aria-hidden="true"></div></div>
     <div class="cara-dots" id="cara-dots" role="tablist" aria-label="Kies een beeld"></div>
   </div>
 </header>
 
 <div class="startfilm-wrap">
   <button type="button" class="startfilm" data-film="motor" aria-label="Bekijk hoe een montage gaat, film van 2 minuten 15 seconden">
-    <span class="film-beeld"><img decoding="async" loading="lazy" src="film/motor-breed.jpg" alt="" width="960" height="540"><span class="film-play" aria-hidden="true"></span><span class="film-tijd">2:15</span></span>
+    <span class="film-beeld"><img decoding="async" loading="lazy" src="film/motor-breed-720.webp" alt="" width="720" height="405"><span class="film-play" aria-hidden="true"></span><span class="film-tijd">2:15</span></span>
     <span><span class="startfilm-kop">Bekijk hoe een montage gaat</span><span class="startfilm-sub">Zo monteren we een muuranker met ketting en slot, van boren tot klaar.</span></span>
   </button>
 </div>

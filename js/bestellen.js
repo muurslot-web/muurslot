@@ -784,7 +784,7 @@ byId('betaal').addEventListener('click', function(){
 
 /* ---------- beeldcarrousel ---------- */
 var SLIDES = [
-  { beeld:'img/muuranker-gevel.jpg',     pos:'center 42%',
+  { beeld: window.matchMedia('(min-width: 700px)').matches ? 'img/muuranker-gevel.jpg' : 'img/muuranker-gevel-800.jpg', pos:'center 42%',
     kop:'ART-4 muuranker, gemonteerd', prijs:'€3,19 per maand', bij:'of €99,95 in één keer' },
   { beeld:'img/kettingslot-door-anker.jpg',  pos:'center 55%',
     kop:'Kettingslot door het anker',  prijs:'in je maandbedrag', bij:'ART-2 tot ART-5' },
@@ -793,18 +793,25 @@ var SLIDES = [
 ];
 
 var cara = byId('cara'), dots = byId('cara-dots'), nu = 0, loopt = null;
+function laadDias(){ Array.prototype.forEach.call(cara.querySelectorAll('.cara-s[data-beeld]'), function(el){ el.style.backgroundImage = 'url("' + el.dataset.beeld + '")'; el.removeAttribute('data-beeld'); }); }
+if(document.readyState === 'complete') setTimeout(laadDias, 0); else window.addEventListener('load', laadDias);
+/* het startbeeld staat al in de pagina en wordt de eerste dia, zodat de foto er meteen is */
+var startDia = cara.querySelector('.cara-start');
 
 SLIDES.forEach(function(sl, i){
-  var d = document.createElement('div');
+  var d = (i === 0 && startDia) ? startDia : document.createElement('div');
   d.className = 'cara-s' + (i === 0 ? ' on' : '');
-  d.style.backgroundImage = 'url("' + sl.beeld + '")';
+  d.removeAttribute('aria-hidden');
+  /* de andere dia's laden pas als de pagina klaar is, zodat de eerste foto voorrang krijgt */
+  if(i === 0) d.style.backgroundImage = 'url("' + sl.beeld + '")';
+  else d.dataset.beeld = sl.beeld;
   d.style.backgroundPosition = sl.pos;
   d.setAttribute('role','group');
   d.setAttribute('aria-label', (i+1) + ' van ' + SLIDES.length + ': ' + sl.kop);
   d.innerHTML = '<div class="cara-kaart"><p class="cara-kop">' + sl.kop + '</p>' +
                 '<p class="cara-prijs">' + (sl.prijs || euro(MONTAGE_2)) + '</p>' +
                 '<p class="cara-bij">' + sl.bij + '</p></div>';
-  cara.appendChild(d);
+  if(d.parentNode !== cara) cara.appendChild(d);
 
   var b = document.createElement('button');
   b.type = 'button'; b.className = 'cara-dot' + (i === 0 ? ' on' : '');
@@ -816,6 +823,7 @@ SLIDES.forEach(function(sl, i){
 });
 
 function toon(i){
+  laadDias();
   nu = (i + SLIDES.length) % SLIDES.length;
   Array.prototype.forEach.call(cara.children, function(el, j){ el.classList.toggle('on', j === nu); });
   Array.prototype.forEach.call(dots.children, function(el, j){
@@ -871,7 +879,7 @@ function toonAdvFilm(voertuig){
   var id = FILM_BIJ[voertuig], f = id ? FILMS[id] : null;
   if(!f){ kaart.hidden = true; return; }
   kaart.dataset.film = id;
-  byId('adv-film-img').src = 'film/' + id + '.jpg';
+  byId('adv-film-img').src = 'film/' + id + '-poster.webp';
   byId('adv-film-tijd').textContent = f.tijd;
   byId('adv-film-sub').textContent = f.naam + ', ' + f.waar;
   kaart.setAttribute('aria-label', 'Bekijk het filmpje: ' + f.naam.toLowerCase() + ' ' + f.waar);

@@ -25,7 +25,8 @@ var ONS_MAILADRES = 'info@muurslot.com';
       (hieronder in de voorwaarden) en in veelgestelde-vragen.html, maar pas als de polis er is,
    2. zet in de voorwaarden bij Wie wij zijn je KvK-nummer en btw-id,
    3. zet "availability": "https://schema.org/InStock" terug in de gegevens voor Google in index.html,
-   4. zet in 404.html "en kun je bestellen" terug.
+   4. zet in 404.html "en kun je bestellen" terug,
+   5. haal de melding boven aan elke pagina weg (de regel met class dicht-balk, voor het menu).
 ------------------------------------------------------------------ */
 var BESTELLEN_OPEN = false;
 
@@ -66,15 +67,11 @@ document.addEventListener('click', function(e){
 });
 
 /* ---------- bestellen nog niet open ---------- */
-if(!BESTELLEN_OPEN){
+/* de melding staat vast in elke pagina (class dicht-balk), zodat de pagina niet verspringt */
+if(BESTELLEN_OPEN){
+  Array.prototype.forEach.call(document.querySelectorAll('.dicht-balk'), function(el){ el.remove(); });
+} else {
   document.documentElement.classList.add('nog-dicht');
-  var navBalk = document.querySelector('.nav');
-  if(navBalk){
-    var melding = document.createElement('p');
-    melding.className = 'dicht-balk';
-    melding.innerHTML = '<b>Bestellen kan nog niet.</b> Lees gerust rond en bekijk wat het kost.';
-    navBalk.parentNode.insertBefore(melding, navBalk);
-  }
   /* de knoppen die naar bestellen leidden, leiden nu naar de prijs */
   Array.prototype.forEach.call(document.querySelectorAll('.navcta'), function(a){
     var lang = a.querySelector('.nc-lang'), kort = a.querySelector('.nc-kort');
