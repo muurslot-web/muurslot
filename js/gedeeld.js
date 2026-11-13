@@ -145,11 +145,11 @@ document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !moda
    De filmpjes staan als mp4 in de map film, naast deze pagina. Zet die map mee online.
    b en h zijn breedte en hoogte, zodat het venster de juiste vorm krijgt. */
 var FILMS = {
-  bakfiets: {src:'film/bakfiets.mp4', naam:'Bakfiets', waar:'aan de gevel',          tijd:'0:56', b:720,  h:1280},
-  fiets:    {src:'film/fiets.mp4',    naam:'Fiets',    waar:'naast de deur',         tijd:'1:02', b:720,  h:1280},
-  motor:    {src:'film/motor.mp4',    naam:'Motor',    waar:'in de garagevloer',     tijd:'2:15', b:960,  h:540},
-  boot:     {src:'film/boot.mp4',     naam:'Boot',     waar:'aan de beschoeiing',    tijd:'0:56', b:720,  h:1280},
-  terras:   {src:'film/terras.mp4',   naam:'Terras',   waar:'stoelen aan een kabel', tijd:'1:03', b:720,  h:1280}
+  bakfiets: {src:'film/muuranker-bakfiets-gevel.mp4', poster:'film/muuranker-bakfiets-gevel.webp', naam:'Bakfiets', waar:'aan de gevel',          tijd:'0:56', b:720,  h:1280},
+  fiets:    {src:'film/muuranker-fiets-voordeur.mp4', poster:'film/muuranker-fiets-voordeur.webp',    naam:'Fiets',    waar:'naast de deur',         tijd:'1:02', b:720,  h:1280},
+  motor:    {src:'film/grondanker-motor-garagevloer.mp4', poster:'film/grondanker-motor-garagevloer.webp',    naam:'Motor',    waar:'in de garagevloer',     tijd:'2:15', b:960,  h:540},
+  boot:     {src:'film/muuranker-boot-beschoeiing.mp4', poster:'film/muuranker-boot-beschoeiing.webp',     naam:'Boot',     waar:'aan de beschoeiing',    tijd:'0:56', b:720,  h:1280},
+  terras:   {src:'film/muuranker-terras-stoelen-kabel.mp4', poster:'film/muuranker-terras-stoelen-kabel.webp',   naam:'Terras',   waar:'stoelen aan een kabel', tijd:'1:03', b:720,  h:1280}
 };
 
 var kijk = byId('kijk'), kijkVideo = byId('kijk-video');

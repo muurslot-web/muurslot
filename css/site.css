@@ -286,6 +286,7 @@ h2,section h1{font-size:clamp(26px,3.2vw,38px);max-width:20ch}
 @media(min-width:960px){.vra-r:last-child{grid-column:span 2}}
 .vra-r p{color:var(--zinc);font-size:15.5px}
 .vra-k{font-family:var(--display);font-weight:700;font-size:17.5px;color:var(--ink);margin-bottom:9px}
+.vra-r h2.vra-k{font-size:15.5px;color:var(--zinc);line-height:1.6;letter-spacing:normal;max-width:none;text-wrap:wrap;margin:0 0 9px}
 
 .klap{margin-top:30px;border:1px solid var(--line);border-radius:6px;background:var(--card)}
 .klap summary{cursor:pointer;padding:18px 22px;font-family:var(--display);font-weight:700;
@@ -755,3 +756,9 @@ footer a{color:var(--zinc)}
   border-radius:5px;font-size:15.5px;line-height:1.4;color:var(--ink)}
 .nog-dicht .dicht-uitleg b{color:var(--brick)}
 .nog-dicht #boeken,.nog-dicht #q-book,.nog-dicht .balk{display:none!important}
+
+/* filmpje op de pagina's per voertuig */
+.vfilm{margin:6px 0 30px}
+.vfilm video{display:block;width:100%;max-width:340px;height:auto;aspect-ratio:9/16;border-radius:6px;background:#000;border:1px solid var(--line)}
+.vfilm-breed video{max-width:640px;aspect-ratio:16/9}
+.vfilm figcaption{color:var(--zinc-dim);font-size:14px;margin-top:8px;max-width:62ch}

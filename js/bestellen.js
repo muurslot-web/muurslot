@@ -879,7 +879,7 @@ function toonAdvFilm(voertuig){
   var id = FILM_BIJ[voertuig], f = id ? FILMS[id] : null;
   if(!f){ kaart.hidden = true; return; }
   kaart.dataset.film = id;
-  byId('adv-film-img').src = 'film/' + id + '-poster.webp';
+  byId('adv-film-img').src = FILMS[id].poster;
   byId('adv-film-tijd').textContent = f.tijd;
   byId('adv-film-sub').textContent = f.naam + ', ' + f.waar;
   kaart.setAttribute('aria-label', 'Bekijk het filmpje: ' + f.naam.toLowerCase() + ' ' + f.waar);
