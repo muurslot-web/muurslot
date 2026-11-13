@@ -740,3 +740,13 @@ footer a{color:var(--zinc)}
 .info-cta p{max-width:560px}
 .info-cta .btn{margin-top:16px}
 .foot-menu p{margin-bottom:5px}
+
+/* ---------- bestellen nog niet open (schakelaar BESTELLEN_OPEN in js/gedeeld.js) ---------- */
+.dicht-balk{margin:0;padding:9px var(--pad);background:var(--tint-brick);border-bottom:1px solid var(--line);
+  font-size:15px;line-height:1.4;text-align:center;color:var(--ink)}
+.dicht-balk b{color:var(--brick)}
+.dicht-uitleg{display:none}
+.nog-dicht .dicht-uitleg{display:block;margin:0;padding:12px 16px;background:var(--tint-brick);border:1px solid var(--line);
+  border-radius:5px;font-size:15.5px;line-height:1.4;color:var(--ink)}
+.nog-dicht .dicht-uitleg b{color:var(--brick)}
+.nog-dicht #boeken,.nog-dicht #q-book,.nog-dicht .balk{display:none!important}

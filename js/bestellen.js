@@ -55,7 +55,7 @@ function knoppen(){
     var sl = gekozenSlot || slotById('geen');
     byId('balk-wat').textContent = huidig.naam + (sl.prijs ? ' met ' + slotNaam(sl) : ', alleen montage');
     byId('balk-tot').textContent = bedragTekst(true);
-    byId('balk').hidden = bijBestellen;
+    byId('balk').hidden = bijBestellen || !BESTELLEN_OPEN;
   }
   var p = byId('betaal');
   if(p && !p.disabled) p.textContent = 'Bestellen met betalingsverplichting';
@@ -705,6 +705,7 @@ byId('naar3').addEventListener('click', function(){
 });
 
 byId('betaal').addEventListener('click', function(){
+  if(!BESTELLEN_OPEN) return;   /* bestellen staat uit (zie gedeeld.js): er wordt niets verstuurd */
   if(!byId('ak-start').checked || !byId('ak-vw').checked){
     byId('ak-err').hidden = false;
     byId('ak-err').textContent = !byId('ak-start').checked
@@ -853,7 +854,7 @@ if('IntersectionObserver' in window){
   new IntersectionObserver(function(rijen){
     rijen.forEach(function(r){
       bijBestellen = r.isIntersecting;
-      if(huidig) byId('balk').hidden = bijBestellen;
+      if(huidig) byId('balk').hidden = bijBestellen || !BESTELLEN_OPEN;
     });
   }, {threshold:0.12}).observe(byId('boeken'));
 }

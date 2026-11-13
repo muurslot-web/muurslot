@@ -16,6 +16,19 @@ var BETAAL_ENDPOINT = '';
    Zolang dit leeg is, komt de bestelling per mail binnen en stuur je zelf een betaallink. */
 var ONS_MAILADRES = 'info@muurslot.com';
 
+/* ------------------------------------------------------------------
+   Bestellen aan of uit.
+   false = bezoekers kunnen alles lezen en de prijs bekijken, maar niet bestellen.
+   Boven aan elke pagina staat dan een melding, het bestelblok blijft dicht en er gaat niets naar Netlify.
+   Weer aanzetten: zet dit op true en
+   1. zet de zin over de bedrijfsaansprakelijkheidsverzekering terug bij Leidingen en bedrading
+      (hieronder in de voorwaarden) en in veelgestelde-vragen.html, maar pas als de polis er is,
+   2. zet in de voorwaarden bij Wie wij zijn je KvK-nummer en btw-id,
+   3. zet "availability": "https://schema.org/InStock" terug in de gegevens voor Google in index.html,
+   4. zet in 404.html "en kun je bestellen" terug.
+------------------------------------------------------------------ */
+var BESTELLEN_OPEN = false;
+
 /* ---------- scrollen ---------- */
 function scrollNaar(el){
   el.scrollIntoView({behavior:'smooth', block:'start'});
@@ -52,6 +65,28 @@ document.addEventListener('click', function(e){
   sluitMenu();
 });
 
+/* ---------- bestellen nog niet open ---------- */
+if(!BESTELLEN_OPEN){
+  document.documentElement.classList.add('nog-dicht');
+  var navBalk = document.querySelector('.nav');
+  if(navBalk){
+    var melding = document.createElement('p');
+    melding.className = 'dicht-balk';
+    melding.innerHTML = '<b>Bestellen kan nog niet.</b> Lees gerust rond en bekijk wat het kost.';
+    navBalk.parentNode.insertBefore(melding, navBalk);
+  }
+  /* de knoppen die naar bestellen leidden, leiden nu naar de prijs */
+  Array.prototype.forEach.call(document.querySelectorAll('.navcta'), function(a){
+    var lang = a.querySelector('.nc-lang'), kort = a.querySelector('.nc-kort');
+    if(lang) lang.textContent = 'Bekijk de prijs';
+    if(kort) kort.textContent = 'Prijs';
+    if(a.dataset.ga) a.dataset.ga = 'kies';
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('#menu a'), function(a){
+    if(a.textContent.trim() === 'Prijs en bestellen') a.textContent = 'Prijs';
+  });
+}
+
 /* ---------- klantinformatie ---------- */
 var DOCS = {
   vw: ['Algemene voorwaarden', ''
@@ -61,7 +96,7 @@ var DOCS = {
     + '<p><b>Huur.</b> De huur geldt voor minimaal 36 maanden en loopt daarna voor onbepaalde tijd door, maandelijks opzegbaar met een opzegtermijn van één maand. Anker en slot blijven eigendom van Muurslot; je kunt ze niet overnemen. Zeg je op, dan halen wij anker en slot op; daarvoor rekenen wij eenmalig €25. Verhuis je, dan kan de huur worden overgedragen aan de nieuwe bewoner. Wordt een maandbedrag niet betaald, dan sturen wij eerst een herinnering met een termijn van veertien dagen voordat wij incassokosten in rekening brengen, zoals de wet voorschrijft.</p>'
     + '<p><b>Terugbetaling.</b> Kan het anker niet worden geplaatst op de plek die jij aanwees, of herroep je vóór de montage, dan betalen wij het volledige bedrag binnen veertien dagen terug.</p>'
     + '<p><b>Uitvoering.</b> Wij bepalen ter plekke welke bevestiging de ondergrond nodig heeft, mechanisch of chemisch, zonder meerprijs. Wij spreken de montagedag vooraf met je af. Je hoeft niet thuis te zijn. Blijkt de ondergrond op de door jou aangewezen plek ongeschikt, dan monteren wij niet en krijg je je geld volledig terug.</p>'
-    + '<p><b>Leidingen en bedrading.</b> Jij wijst de plek aan en kent je eigen woning. Geef bij je opdracht door of er water, gas of elektra door die muur loopt. Wij beschikken niet over detectieapparatuur en gaan af op jouw opgave en op wat ter plekke zichtbaar is. Voor schade die aan ons toe te rekenen is, zijn wij verzekerd via een bedrijfsaansprakelijkheidsverzekering.</p>'
+    + '<p><b>Leidingen en bedrading.</b> Jij wijst de plek aan en kent je eigen woning. Geef bij je opdracht door of er water, gas of elektra door die muur loopt. Wij beschikken niet over detectieapparatuur en gaan af op jouw opgave en op wat ter plekke zichtbaar is.</p>'
     + '<p><b>Toestemming om te boren.</b> Wij monteren op de plek die jij aanwijst. Door te bestellen verklaar je dat je eigenaar bent van die muur of vloer, of dat je toestemming hebt van je verhuurder of VvE. Wij vragen dat niet na en controleren het niet. Blijkt achteraf dat je die toestemming niet had, dan zijn de gevolgen daarvan en de kosten van verwijderen of herstellen voor jou. Huur je je woning, of woon je in een appartement met een VvE? Regel het dan vooraf even. Het is meestal een kwestie van één mailtje.</p>'
     + '<p><b>Wettelijke garantie.</b> Je hebt recht op een product dat doet wat je ervan mag verwachten. Dat recht heb je altijd, ook los van wat hier staat.</p>'
     + '<p><b>Klachten.</b> Mail naar info@muurslot.com. Wij reageren binnen veertien dagen. Komen we er samen niet uit, dan kun je je klacht voorleggen aan de rechter.</p>'],
