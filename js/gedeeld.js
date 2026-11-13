@@ -90,7 +90,7 @@ if(!BESTELLEN_OPEN){
 /* ---------- klantinformatie ---------- */
 var DOCS = {
   vw: ['Algemene voorwaarden', ''
-    + '<p><b>Wie wij zijn.</b> Muurslot, Sassenheim, info@muurslot.com, 06 29 47 15 33.</p>'
+    + '<p><b>Wie wij zijn.</b> Muurslot, Sassenheim, info@muurslot.com.</p>'
     + '<p><b>Wat wij doen.</b> Wij leveren en monteren een ART-4 muuranker op een door jou aangewezen plek, en verkopen kettingsloten en kabelsloten. Anker en slot kun je kopen of huren. Alle prijzen zijn inclusief btw.</p>'
     + '<p><b>Betaling.</b> Na je bestelling krijg je een betaallink per e-mail. Je kiest uit drie vormen. <b>In één keer</b> met iDEAL; na de montage ben je eigenaar van het anker. <b>In drie termijnen via in3</b>: eerst het eerste deel, de rest na 30 en 60 dagen. Je sluit daarvoor een overeenkomst met in3, dat de betaling afhandelt. <b>Huur</b>: de montage is gratis; je betaalt een vast bedrag per maand via automatische incasso, te beginnen met de eerste maand. Dat maandbedrag staat bij je bestelling vermeld.</p>'
     + '<p><b>Huur.</b> De huur geldt voor minimaal 36 maanden en loopt daarna voor onbepaalde tijd door, maandelijks opzegbaar met een opzegtermijn van één maand. Anker en slot blijven eigendom van Muurslot; je kunt ze niet overnemen. Zeg je op, dan halen wij anker en slot op; daarvoor rekenen wij eenmalig €25. Verhuis je, dan kan de huur worden overgedragen aan de nieuwe bewoner. Wordt een maandbedrag niet betaald, dan sturen wij eerst een herinnering met een termijn van veertien dagen voordat wij incassokosten in rekening brengen, zoals de wet voorschrijft.</p>'

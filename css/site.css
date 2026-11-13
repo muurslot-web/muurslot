@@ -726,6 +726,7 @@ footer a{color:var(--zinc)}
   .navlinks{display:none}
   .menuknop{display:flex}
   .navtel{margin-left:auto}
+  .navcta{margin-left:auto}
   .nav .wrap{gap:12px}
 }
 @media(min-width:1181px){.menu{display:none!important}}

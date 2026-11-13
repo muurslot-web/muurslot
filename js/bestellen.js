@@ -739,7 +739,7 @@ byId('betaal').addEventListener('click', function(){
         + 'Ga terug naar je gegevens, haal de foto weg en probeer het nog eens. Stuur de foto daarna per e-mail naar ' + ONS_MAILADRES + '.'
       : '<b>Het versturen is niet gelukt.</b>'
         + 'Je gegevens staan nog hier. Probeer het over een paar minuten nog eens. '
-        + 'Lukt het dan weer niet, bel ons op <a href="tel:+31629471533">06 29 47 15 33</a> of '
+        + 'Lukt het dan weer niet, '
         + '<a href="' + mailLink(d) + '">stuur je bestelling per e-mail</a>.';
     fout.hidden = false;
     knop.disabled = false; knoppen();

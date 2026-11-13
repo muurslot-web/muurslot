@@ -132,7 +132,7 @@ byId('d-stuur').addEventListener('click', function(){
         var e = byId('d-err');
         e.innerHTML = '<b>Het versturen is niet gelukt.</b>'
           + 'Je gegevens staan nog hier. Probeer het over een paar minuten nog eens. '
-          + 'Lukt het dan weer niet, bel ons op <a href="tel:+31629471533">06 29 47 15 33</a> of '
+          + 'Lukt het dan weer niet, '
           + '<a href="' + dealerLink + '">mail de opdracht</a>.';
         e.hidden = false;
         e.scrollIntoView({behavior:'smooth', block:'center'});
