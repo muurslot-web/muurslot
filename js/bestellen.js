@@ -885,3 +885,9 @@ function toonAdvFilm(voertuig){
   kaart.setAttribute('aria-label', 'Bekijk het filmpje: ' + f.naam.toLowerCase() + ' ' + f.waar);
   kaart.hidden = false;
 }
+
+/* Een link als /?voertuig=bakfiets (vanaf de pagina's per voertuig) opent de keuzehulp meteen met dat voertuig. */
+(function(){
+  var m = location.search.match(/[?&]voertuig=([a-z]+)/);
+  if(m && VOERTUIGEN.some(function(v){ return v.id === m[1]; })) choose(m[1]);
+})();
