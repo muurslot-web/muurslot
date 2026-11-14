@@ -138,6 +138,7 @@ img{display:block;max-width:100%}
 .pick{margin-top:36px;scroll-margin-top:84px}
 .hero-wie{margin-top:20px;font-size:15px;color:var(--zinc);max-width:46ch;line-height:1.6}
 .hero-wie .inline-link{white-space:nowrap}
+.hero-meer{margin-top:6px}
 .pick-q{font-family:var(--display);font-weight:500;font-size:16px;color:var(--zinc);margin-bottom:12px}
 .pick-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;max-width:520px}
 .veh{
