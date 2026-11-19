@@ -46,3 +46,16 @@
   to = "/404.html"
   status = 404
   force = true
+
+# Het pakketbestand is er alleen voor de bezoekersteller (netlify/functions/teller.mjs); ook dat hoort niet online.
+[[redirects]]
+  from = "/package.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package-lock.json"
+  to = "/404.html"
+  status = 404
+  force = true

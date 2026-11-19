@@ -68,7 +68,8 @@ function scrollNaar(el){
 
 /* ---------- dealerlink ----------
    Een dealer krijgt een eigen link, zoals muurslot.com/?ref=tweewielers-jansen. Die code geven we mee aan elke link naar een
-   andere pagina van deze site, zodat hij blijft staan tot de dealer bij Zakelijk is. Er wordt niets opgeslagen. */
+   andere pagina van deze site, zodat hij blijft staan tot de dealer bij Zakelijk is. De bezoekersteller (js/teller.js)
+   telt de code bij binnenkomst mee als bron; verder wordt er niets opgeslagen. */
 (function(){
   var m = location.search.match(/[?&]ref=([\w-]+)/);
   if(!m) return;
@@ -136,7 +137,7 @@ var DOCS = {
     + '<p><b>Wie er meewerkt.</b> Een paar partijen verwerken gegevens in onze opdracht. Netlify host deze site en bewaart de bestellingen die hier binnenkomen, met de foto die je meestuurt. Resend verstuurt onze e-mails, zoals de bevestiging van je bestelling. Voor betalingen werken wij met Mollie en, als je in drie termijnen betaalt, met in3. Netlify en Resend zijn Amerikaanse bedrijven die zijn aangesloten bij het EU-US Data Privacy Framework, het kader waarmee gegevens uit Europa wettelijk naar de VS mogen. Verder geven wij je gegevens niet door, tenzij de wet dat van ons vraagt.</p>'
     + '<p><b>Hoe lang.</b> Je factuurgegevens houden wij zeven jaar, omdat de Belastingdienst dat eist. Huur je het anker, dan houden wij je adres zolang de huur loopt. De rest verwijderen wij eerder.</p>'
     + '<p><b>Je rechten.</b> Je mag opvragen wat wij van je hebben, het laten wijzigen of laten wissen. Mail naar info@muurslot.com, wij reageren binnen een maand. Kom je er niet uit, dan kun je klagen bij de Autoriteit Persoonsgegevens.</p>'
-    + '<p><b>Cookies.</b> Deze site plaatst geen cookies en meet je gedrag niet.</p>'],
+    + '<p><b>Cookies en tellen.</b> Deze site plaatst geen cookies. Wel tellen wij hoe vaak pagina\'s en filmpjes worden bekeken, waar bezoekers vandaan komen (bijvoorbeeld Google of een flyer), in welke taal en of dat op een telefoon, tablet of computer is. Daarbij bewaren wij geen IP-adres en niets anders waarmee je te herkennen bent. Die tellingen staan bij Netlify, dat deze site host.</p>'],
 
   hr: ['Retour en bedenktijd', '<p><b>Op het kettingslot of kabelslot</b> heb je veertien dagen bedenktijd, gerekend vanaf de dag dat je ze ontvangt. Je hoeft geen reden op te geven. Stuur ze ongebruikt terug, dan krijg je je geld binnen veertien dagen terug. De kosten van het terugsturen zijn voor jou.</p>'
     + '<p><b>Op de montage</b> heb je diezelfde veertien dagen bedenktijd. Maar omdat wij vaak al binnen die veertien dagen komen, vragen wij je bij het afrekenen uitdrukkelijk om al binnen die termijn te mogen beginnen. Vink je dat aan, dan vervalt je herroepingsrecht op de montage zodra het anker geplaatst is. Dat is wettelijk zo geregeld en daarom staat het als apart vinkje in de bestelling, niet weggestopt in de voorwaarden.</p>'
@@ -211,6 +212,7 @@ function openFilm(id, knop){
   var p = kijkVideo.play();
   if(p && p.catch) p.catch(function(){});
   byId('kijk-x').focus();
+  if(window.telFilm) window.telFilm(id);   // bezoekersteller: welk filmpje is geopend
 }
 function sluitFilm(){
   if(kijk.hidden) return;
