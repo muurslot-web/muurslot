@@ -1,6 +1,37 @@
 /* Gedeeld door elke pagina: menu, klantinformatie, filmvenster en herroepen. */
 function byId(id){ return document.getElementById(id); }
 
+/* ---------- talen ----------
+   Elke taal heeft eigen pagina's: /en, /de, /es en /zh. Die laden vóór dit bestand een woordenlijst
+   (js/taal/en.js enzovoort) met window.VERTALING: Nederlandse tekst -> vertaling.
+   t('tekst') geeft de vertaling, of de Nederlandse tekst als er geen is.
+   tv('Voor {wie}', {wie: ...}) doet hetzelfde met invulplekken.
+   Wat naar ons gaat (bestellingen, dealeropdrachten, herroepingen) blijft altijd Nederlands. */
+var TAAL = (document.documentElement.getAttribute('lang') || 'nl').slice(0, 2).toLowerCase();
+var VERTALING = window.VERTALING || {};
+var LOCALE = {nl:'nl-NL', en:'en-GB', de:'de-DE', es:'es-ES', zh:'zh-CN'}[TAAL] || 'nl-NL';
+// leestekens tussen stukjes tekst: in het Chinees de brede komma en dubbele punt
+var KOMMA = TAAL === 'zh' ? '\uff0c' : ', ', DUBBELEPUNT = TAAL === 'zh' ? '\uff1a' : ': ';
+function t(s){ return Object.prototype.hasOwnProperty.call(VERTALING, s) ? VERTALING[s] : s; }
+function tv(s, w){
+  s = t(s);
+  for(var k in w) if(Object.prototype.hasOwnProperty.call(w, k)) s = s.split('{' + k + '}').join(w[k]);
+  return s;
+}
+/* bedragen: op het scherm in de taal van de bezoeker, in bestellingen naar ons in het Nederlands */
+var GELD_TAAL = TAAL;
+function opNL(fn){
+  var oud = GELD_TAAL; GELD_TAAL = 'nl';
+  try { return fn(); } finally { GELD_TAAL = oud; }
+}
+
+/* taalkeuze in het menu: dichtklappen als je ernaast klikt */
+document.addEventListener('click', function(e){
+  Array.prototype.forEach.call(document.querySelectorAll('details.taal[open]'), function(d){
+    if(!d.contains(e.target)) d.removeAttribute('open');
+  });
+});
+
 /* ------------------------------------------------------------------
    Waar aanvragen heen gaan.
    '/' = Netlify Forms. Bestellingen, dealeropdrachten en herroepingen
@@ -75,12 +106,12 @@ if(BESTELLEN_OPEN){
   /* de knoppen die naar bestellen leidden, leiden nu naar de prijs */
   Array.prototype.forEach.call(document.querySelectorAll('.navcta'), function(a){
     var lang = a.querySelector('.nc-lang'), kort = a.querySelector('.nc-kort');
-    if(lang) lang.textContent = 'Bekijk de prijs';
-    if(kort) kort.textContent = 'Prijs';
+    if(lang) lang.textContent = t('Bekijk de prijs');
+    if(kort) kort.textContent = t('Prijs');
     if(a.dataset.ga) a.dataset.ga = 'kies';
   });
   Array.prototype.forEach.call(document.querySelectorAll('#menu a'), function(a){
-    if(a.textContent.trim() === 'Prijs en bestellen') a.textContent = 'Prijs';
+    if(a.textContent.trim() === t('Prijs en bestellen')) a.textContent = t('Prijs');
   });
 }
 
@@ -123,6 +154,8 @@ var DOCS = {
     + '</div><div class="done" id="hf-klaar" role="status"></div>'
     + '<p class="hint">Liever per mail? Stuur je naam, adres en bestelnummer naar <b>info@muurslot.com</b> met de zin: <i>"Ik herroep de overeenkomst."</i></p>']
 };
+/* in een andere taal komen voorwaarden, privacy en herroepen uit de woordenlijst van die taal */
+if(window.VERTALING_DOCS) DOCS = window.VERTALING_DOCS;
 
 var modal = byId('modal');
 document.addEventListener('click', function(e){
@@ -145,11 +178,11 @@ document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !moda
    De filmpjes staan als mp4 in de map film, naast deze pagina. Zet die map mee online.
    b en h zijn breedte en hoogte, zodat het venster de juiste vorm krijgt. */
 var FILMS = {
-  bakfiets: {src:'film/muuranker-bakfiets-gevel.mp4', poster:'film/muuranker-bakfiets-gevel.webp', naam:'Bakfiets', waar:'aan de gevel',          tijd:'0:56', b:720,  h:1280},
-  fiets:    {src:'film/muuranker-fiets-voordeur.mp4', poster:'film/muuranker-fiets-voordeur.webp',    naam:'Fiets',    waar:'naast de deur',         tijd:'1:02', b:720,  h:1280},
-  motor:    {src:'film/grondanker-motor-garagevloer.mp4', poster:'film/grondanker-motor-garagevloer.webp',    naam:'Motor',    waar:'in de garagevloer',     tijd:'2:15', b:960,  h:540},
-  boot:     {src:'film/muuranker-boot-beschoeiing.mp4', poster:'film/muuranker-boot-beschoeiing.webp',     naam:'Boot',     waar:'aan de beschoeiing',    tijd:'0:56', b:720,  h:1280},
-  terras:   {src:'film/muuranker-terras-stoelen-kabel.mp4', poster:'film/muuranker-terras-stoelen-kabel.webp',   naam:'Terras',   waar:'stoelen aan een kabel', tijd:'1:03', b:720,  h:1280}
+  bakfiets: {src:'/film/muuranker-bakfiets-gevel.mp4', poster:'/film/muuranker-bakfiets-gevel.webp', naam:'Bakfiets', waar:'aan de gevel',          tijd:'0:56', b:720,  h:1280},
+  fiets:    {src:'/film/muuranker-fiets-voordeur.mp4', poster:'/film/muuranker-fiets-voordeur.webp',    naam:'Fiets',    waar:'naast de deur',         tijd:'1:02', b:720,  h:1280},
+  motor:    {src:'/film/grondanker-motor-garagevloer.mp4', poster:'/film/grondanker-motor-garagevloer.webp',    naam:'Motor',    waar:'in de garagevloer',     tijd:'2:15', b:960,  h:540},
+  boot:     {src:'/film/muuranker-boot-beschoeiing.mp4', poster:'/film/muuranker-boot-beschoeiing.webp',     naam:'Boot',     waar:'aan de beschoeiing',    tijd:'0:56', b:720,  h:1280},
+  terras:   {src:'/film/muuranker-terras-stoelen-kabel.mp4', poster:'/film/muuranker-terras-stoelen-kabel.webp',   naam:'Terras',   waar:'stoelen aan een kabel', tijd:'1:03', b:720,  h:1280}
 };
 
 var kijk = byId('kijk'), kijkVideo = byId('kijk-video');
@@ -169,7 +202,7 @@ function openFilm(id, knop){
   if(!f) return;
   kijkId = id;
   kijkTerug = knop || null;
-  byId('kijk-naam').textContent = f.naam + ', ' + f.waar;
+  byId('kijk-naam').textContent = t(f.naam) + KOMMA + t(f.waar);
   byId('kijk-fout').hidden = true;
   kijkVideo.src = f.src;
   kijk.hidden = false;
@@ -211,11 +244,13 @@ document.addEventListener('click', function(e){
   var err = byId('hf-err');
   if(!naam || !wat || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){
     err.hidden = false;
-    err.textContent = 'Vul je naam, de bestelling en een geldig e-mailadres in.';
+    err.textContent = t('Vul je naam, de bestelling en een geldig e-mailadres in.');
     return;
   }
   err.hidden = true;
-  var moment = new Date().toLocaleString('nl-NL');
+  var nu = new Date();
+  var moment = nu.toLocaleString('nl-NL');          /* voor ons, in de herroeping */
+  var momentKlant = nu.toLocaleString(LOCALE);      /* voor de klant, op het scherm */
   var tekst = 'Ik herroep de overeenkomst.\n\nNaam: ' + naam + '\nBestelling: ' + wat +
               '\nBevestiging naar: ' + mail + '\nVerstuurd op: ' + moment;
   function viaMail(){
@@ -226,11 +261,11 @@ document.addEventListener('click', function(e){
     var k = byId('hf-klaar');
     k.innerHTML = '';
     var kop = document.createElement('h3');
-    kop.textContent = ontvangen ? 'Herroeping ontvangen' : 'Nog één stap';
+    kop.textContent = ontvangen ? t('Herroeping ontvangen') : t('Nog één stap');
     var p = document.createElement('p');
     p.textContent = ontvangen
-      ? 'We hebben je herroeping op ' + moment + ' ontvangen. Je krijgt een bevestiging op ' + mail + '.'
-      : 'Je mailprogramma opent met je herroeping erin. Verstuur die mail, dan bevestigen wij hem op ' + mail + '.';
+      ? tv('We hebben je herroeping op {moment} ontvangen. Je krijgt een bevestiging op {mail}.', {moment: momentKlant, mail: mail})
+      : tv('Je mailprogramma opent met je herroeping erin. Verstuur die mail, dan bevestigen wij hem op {mail}.', {mail: mail});
     k.appendChild(kop); k.appendChild(p);
     k.classList.add('on');
     byId('hf-ok').disabled = true;
@@ -239,7 +274,7 @@ document.addEventListener('click', function(e){
     var fd = new FormData();
     fd.append('form-name', 'herroeping');
     fd.append('soort', 'herroeping'); fd.append('naam', naam); fd.append('bestelling', wat);
-    fd.append('email', mail); fd.append('moment', moment);
+    fd.append('email', mail); fd.append('moment', moment); fd.append('taal', TAAL);
     fetch(FORM_ENDPOINT, {method:'POST', headers:{'Accept':'application/json'}, body:fd})
       .then(function(r){ if(!r.ok) throw 0; toon(true); })
       .catch(function(){ viaMail(); toon(false); });

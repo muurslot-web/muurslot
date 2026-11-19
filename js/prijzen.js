@@ -107,19 +107,36 @@ function bars(n, good){
   return s;
 }
 function euro(n){
-  /* Nederlands: punt als duizendtal, komma voor centen. Hele bedragen zonder ,00 */
+  /* Nederlands: komma voor centen, hele bedragen zonder ,00. In de andere talen zoals daar gebruikelijk:
+     Engels en Chinees €99.95, Duits en Spaans 99,95 €. GELD_TAAL staat in gedeeld.js. */
   var afgerond = Math.round(n * 100) / 100;
   var geheel = Math.floor(afgerond);
   var rest = Math.round((afgerond - geheel) * 100);
-  if(rest === 0) return '€' + geheel;
-  return '€' + geheel + ',' + (rest < 10 ? '0' + rest : rest);
+  var c = rest < 10 ? '0' + rest : '' + rest;
+  var taal = (typeof GELD_TAAL === 'string') ? GELD_TAAL : 'nl';
+  if(taal === 'de' || taal === 'es') return (rest === 0 ? geheel : geheel + ',' + c) + ' €';
+  if(taal === 'en' || taal === 'zh') return '€' + (rest === 0 ? geheel : geheel + '.' + c);
+  return '€' + (rest === 0 ? geheel : geheel + ',' + c);
 }
-function mm(x){ return String(x).replace('.', ',') + ' mm'; }
-function slotNaam(sl){
-  if(!sl.prijs) return 'Geen slot';
-  if(sl.kabel)  return 'Kabelslot ' + sl.lengte.replace(' kabel', '');
-  return 'Kettingslot ' + sl.lengte + ' (ART-' + sl.klasse + ')';
+function mm(x){ return ((TAAL === 'en' || TAAL === 'zh') ? String(x) : String(x).replace('.', ',')) + ' mm'; }
+/* lengte zoals de bezoeker hem leest: '250 cm kabel', '20 m kabel', 'op maat' of 'Geen slot' */
+function lengteTekst(sl){
+  if(!sl.prijs) return t('Geen slot');
+  if(sl.lengte === 'op maat') return t('op maat');
+  return sl.lengte.replace(' kabel', ' ' + t('kabel'));
 }
+/* nl = true: de Nederlandse naam, voor bestellingen naar ons */
+function slotNaam(sl, nl){
+  var T = nl ? function(s){ return s; } : t;
+  if(!sl.prijs) return T('Geen slot');
+  if(sl.kabel){
+    var l = sl.lengte.replace(' kabel', '');
+    return T('Kabelslot') + ' ' + (l === 'op maat' ? T('op maat') : l);
+  }
+  return T('Kettingslot') + ' ' + sl.lengte + ' (ART-' + sl.klasse + ')';
+}
+/* het label bij een slot in de keuzelijst */
+function tagTekst(o){ return o.schakel ? tv('Schakels van {mm}', {mm: mm(o.schakel)}) : t(o.tag); }
 
 /* ---------- picker ---------- */
 VOERTUIGEN.push({
@@ -162,7 +179,7 @@ VOERTUIGEN.push({
   id:'zelf', naam:'Zelf kiezen', label:'je eigen samenstelling',
   min:0, rec:0, lengte:'jij bepaalt',
   opties: SLOTEN.map(function(sl){
-    return {id: sl.id, tag: sl.prijs ? 'Schakels van ' + mm(sl.mm) : 'Ik regel zelf een ketting'};
+    return {id: sl.id, tag: sl.prijs ? 'Schakels van ' + mm(sl.mm) : 'Ik regel zelf een ketting', schakel: sl.prijs ? sl.mm : 0};
   }),
   lede:'Staat jouw voertuig er niet bij, of weet je zelf al precies wat je wilt? Kies hieronder vrij uit alles wat we voeren.',
   locknote:'Twijfel je? Bel of mail ons even. Wij zeggen liever vooraf dat iets te licht is dan achteraf.',

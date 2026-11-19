@@ -786,3 +786,46 @@ footer a{color:var(--zinc)}
 .vfilm video{display:block;width:100%;max-width:340px;height:auto;aspect-ratio:9/16;border-radius:6px;background:#000;border:1px solid var(--line)}
 .vfilm-breed video{max-width:640px;aspect-ratio:16/9}
 .vfilm figcaption{color:var(--zinc-dim);font-size:14px;margin-top:8px;max-width:62ch}
+
+/* ---------- talen ----------
+   Een uitklapmenu naast de knop bovenaan (op een heel smal scherm alleen in het menu),
+   een rij onderaan het menu en een rij onderaan de pagina. */
+.taal{position:relative;display:block}
+@media(max-width:1180px){
+  .nav .wrap{gap:8px}
+  .taal summary{min-width:36px;padding:9px 7px;font-size:13px}
+  .taal summary::after{display:none}
+}
+@media(max-width:359px){.nav .wrap .taal{display:none}}
+@media(min-width:1181px){.nav .wrap{justify-content:flex-start}.navlinks{margin-inline:auto}}
+/* knoppen bovenaan nooit afbreken (Chinees breekt anders tussen elk teken); op smalle telefoons wat krapper */
+.navcta,.taal summary{white-space:nowrap}
+@media(max-width:400px){
+  .nav .wrap{gap:6px}
+  .navcta{padding:10px 11px}
+  .taal summary{min-width:40px;padding:9px 6px}
+}
+@media(max-width:374px){.brand{font-size:17px;gap:8px}.brand-merk{width:20px;height:27px}}
+.taal summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;min-height:44px;min-width:44px;
+  padding:9px 11px;border:1px solid var(--line);border-radius:5px;background:var(--card);color:var(--ink);font-weight:600;font-size:14px;font-family:var(--body)}
+.taal summary::-webkit-details-marker{display:none}
+.taal summary::after{content:"";width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg)}
+.taal[open] summary::after{transform:translateY(1px) rotate(-135deg)}
+.taal-lijst{position:absolute;right:0;top:calc(100% + 6px);min-width:170px;display:grid;padding:6px;z-index:50;
+  background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:0 14px 28px rgba(0,0,0,.12)}
+.taal-lijst a{display:block;padding:10px 12px;border-radius:4px;color:var(--ink);text-decoration:none;font-size:15px}
+.taal-lijst a:hover{background:var(--paper)}
+.taal-lijst a[aria-current]{color:var(--oranje);font-weight:600}
+.menu .menu-talen{display:flex;flex-wrap:wrap;gap:0 20px;padding-top:10px}
+.menu .menu-talen a{border:0;padding:10px 0;font-family:var(--body);font-weight:600;font-size:15px;color:var(--zinc)}
+.menu .menu-talen a[aria-current]{color:var(--oranje)}
+.foot-talen{display:flex;flex-wrap:wrap;gap:4px 20px;margin-top:26px;padding-top:16px;border-top:1px solid var(--line-soft);font-size:15px}
+.foot-talen a{display:inline-block;padding:6px 0;color:var(--zinc);text-decoration:none}
+.foot-talen a:hover{color:var(--ink)}
+.foot-talen a[aria-current]{color:var(--oranje);font-weight:600}
+/* Chinees: de letters van de site hebben geen Chinese tekens, dus de Chinese letter van het apparaat, zonder krappe spatiëring */
+:root:lang(zh){
+  --display:'Archivo',"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Noto Sans CJK SC",system-ui,sans-serif;
+  --body:'SourceSans',"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Noto Sans CJK SC",system-ui,-apple-system,sans-serif}
+:root:lang(zh) h1,:root:lang(zh) h2,:root:lang(zh) h3,:root:lang(zh) .num{letter-spacing:0;line-height:1.25}
+:root:lang(zh) body{line-height:1.75}

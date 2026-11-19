@@ -32,11 +32,11 @@ SLOTEN.forEach(function(sl){
       '<b>' + mm(sl.mm) + '</b></span>' +
     '<span class="lr-cls">' + (sl.klasse
       ? '<i class="bars">' + bars(sl.klasse, false) + '</i><b>ART-' + sl.klasse + '</b>'
-      : '<b class="kab">geen ART</b>') + '</span>' +
-    '<span class="lr-len">' + (sl.opMaat ? '5 tot 100\u00a0m' : sl.lengte.replace(' ', '\u00a0')) + '</span>' +
-    '<span class="lr-for">' + sl.voor + '</span>' +
-    '<span class="lr-pr">' + (sl.opMaat ? 'vanaf ' : '') +
+      : '<b class="kab">' + t('geen ART') + '</b>') + '</span>' +
+    '<span class="lr-len">' + (sl.opMaat ? t('5 tot 100 m') : lengteTekst(sl)).replace(' ', '\u00a0') + '</span>' +
+    '<span class="lr-for">' + t(sl.voor) + '</span>' +
+    '<span class="lr-pr">' + (sl.opMaat ? t('vanaf') + ' ' : '') +
       ctEuro(huurCt(ct(MONTAGE) + ct(sl.opMaat ? kabelPrijs(5) : sl.prijs))) +
-      '<b class="lr-pm">per maand, met anker</b></span>';
+      '<b class="lr-pm">' + t('per maand, met anker') + '</b></span>';
   ladder.appendChild(r);
 });

@@ -1,43 +1,503 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://muurslot.com/</loc>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/en/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/de/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/es/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/zh/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/"/>
   </url>
   <url>
     <loc>https://muurslot.com/zo-werkt-het</loc>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/zo-werkt-het"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/en/zo-werkt-het</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/zo-werkt-het"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/de/zo-werkt-het</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/zo-werkt-het"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/es/zo-werkt-het</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/zo-werkt-het"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/zh/zo-werkt-het</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/zo-werkt-het"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/zo-werkt-het"/>
   </url>
   <url>
     <loc>https://muurslot.com/het-anker</loc>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/het-anker"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/en/het-anker</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/het-anker"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/de/het-anker</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/het-anker"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/es/het-anker</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/het-anker"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/zh/het-anker</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/het-anker"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/het-anker"/>
   </url>
   <url>
     <loc>https://muurslot.com/verzekering</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/verzekering"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/en/verzekering</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/verzekering"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/de/verzekering</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/verzekering"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/es/verzekering</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/verzekering"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/zh/verzekering</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/verzekering"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/verzekering"/>
   </url>
   <url>
     <loc>https://muurslot.com/veelgestelde-vragen</loc>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/veelgestelde-vragen"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/en/veelgestelde-vragen</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/veelgestelde-vragen"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/de/veelgestelde-vragen</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/veelgestelde-vragen"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/es/veelgestelde-vragen</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/veelgestelde-vragen"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/zh/veelgestelde-vragen</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/veelgestelde-vragen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/veelgestelde-vragen"/>
   </url>
   <url>
     <loc>https://muurslot.com/over-ons</loc>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/over-ons"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/en/over-ons</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/over-ons"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/de/over-ons</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/over-ons"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/es/over-ons</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/over-ons"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/zh/over-ons</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/over-ons"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/over-ons"/>
   </url>
   <url>
     <loc>https://muurslot.com/zakelijk</loc>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/zakelijk"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/en/zakelijk</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/zakelijk"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/de/zakelijk</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/zakelijk"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/es/zakelijk</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/zakelijk"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/zh/zakelijk</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/zakelijk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/zakelijk"/>
   </url>
   <url>
     <loc>https://muurslot.com/muuranker-fiets</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/muuranker-fiets"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/en/muuranker-fiets</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/muuranker-fiets"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/de/muuranker-fiets</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/muuranker-fiets"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/es/muuranker-fiets</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/muuranker-fiets"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/zh/muuranker-fiets</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/muuranker-fiets"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/muuranker-fiets"/>
   </url>
   <url>
     <loc>https://muurslot.com/muuranker-bakfiets</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/muuranker-bakfiets"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/en/muuranker-bakfiets</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/muuranker-bakfiets"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/de/muuranker-bakfiets</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/muuranker-bakfiets"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/es/muuranker-bakfiets</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/muuranker-bakfiets"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/zh/muuranker-bakfiets</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/muuranker-bakfiets"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/muuranker-bakfiets"/>
   </url>
   <url>
     <loc>https://muurslot.com/muuranker-motor</loc>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/muuranker-motor"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/en/muuranker-motor</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/muuranker-motor"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/de/muuranker-motor</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/muuranker-motor"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/es/muuranker-motor</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/muuranker-motor"/>
+  </url>
+  <url>
+    <loc>https://muurslot.com/zh/muuranker-motor</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://muurslot.com/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://muurslot.com/en/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://muurslot.com/de/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://muurslot.com/es/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://muurslot.com/zh/muuranker-motor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://muurslot.com/muuranker-motor"/>
   </url>
 </urlset>

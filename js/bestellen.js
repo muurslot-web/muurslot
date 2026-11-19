@@ -10,7 +10,7 @@ VOERTUIGEN.forEach(function(v){
     b.className = 'veh';
     b.setAttribute('aria-pressed','false');
     b.dataset.id = v.id;
-    b.textContent = v.naam;
+    b.textContent = t(v.naam);
     b.addEventListener('click', function(){ choose(v.id); });
     rij.appendChild(b);
   });
@@ -37,7 +37,7 @@ function zetMaat(m){
 
 function bedragTekst(kort){
   /* wat de klant ziet: eenmalig, drie termijnen of huur */
-  if(betaalwijze === 'huur') return euro(huurPm()) + (kort ? ' p/m' : ' per maand');
+  if(betaalwijze === 'huur') return tv(kort ? '{p} p/m' : '{p} per maand', {p: euro(huurPm())});
   if(betaalwijze === 'drie') return in3Tekst();
   return euro(totaal());
 }
@@ -53,25 +53,27 @@ function knoppen(){
   if(b) b.textContent = bedragTekst(true);
   if(huidig){
     var sl = gekozenSlot || slotById('geen');
-    byId('balk-wat').textContent = huidig.naam + (sl.prijs ? ' met ' + slotNaam(sl) : ', alleen montage');
+    byId('balk-wat').textContent = sl.prijs
+      ? tv('{voertuig} met {slot}', {voertuig: t(huidig.naam), slot: slotNaam(sl)})
+      : tv('{voertuig}, alleen montage', {voertuig: t(huidig.naam)});
     byId('balk-tot').textContent = bedragTekst(true);
     byId('balk').hidden = bijBestellen || !BESTELLEN_OPEN;
   }
   var p = byId('betaal');
-  if(p && !p.disabled) p.textContent = 'Bestellen met betalingsverplichting';
+  if(p && !p.disabled) p.textContent = t('Bestellen met betalingsverplichting');
   var el = byId('eind-lab'), et = byId('eind-tot');
   if(el && et){
-    el.textContent = betaalwijze === 'huur' ? 'Eerste betaling: de eerste maand, inclusief btw'
-                   : betaalwijze === 'drie' ? 'Eerste betaling: het eerste deel via in3, inclusief btw'
-                   : 'Totaal om te betalen met iDEAL, inclusief btw';
+    el.textContent = betaalwijze === 'huur' ? t('Eerste betaling: de eerste maand, inclusief btw')
+                   : betaalwijze === 'drie' ? t('Eerste betaling: het eerste deel via in3, inclusief btw')
+                   : t('Totaal om te betalen met iDEAL, inclusief btw');
     et.textContent = nuTeBetalen();
   }
 }
 function betaalTekst(){
   /* zoals de klant het in het overzicht leest */
-  if(betaalwijze === 'huur') return 'Huur, ' + euro(huurPm()) + ' per maand, minimaal 36 maanden';
-  if(betaalwijze === 'drie') return 'In drie termijnen via in3, ' + in3Tekst();
-  return 'In één keer met iDEAL, ' + euro(totaal());
+  if(betaalwijze === 'huur') return tv('Huur, {p} per maand, minimaal 36 maanden', {p: euro(huurPm())});
+  if(betaalwijze === 'drie') return tv('In drie termijnen via in3, {termijnen}', {termijnen: in3Tekst()});
+  return tv('In één keer met iDEAL, {p}', {p: euro(totaal())});
 }
 
 MATEN.forEach(function(m){
@@ -121,14 +123,14 @@ function termijnen(){
   });
   byId('term1-b').textContent  = euro(totaal());
   byId('term3-b').textContent  = in3Tekst();
-  byId('term36-b').textContent = euro(huurPm()) + ' per maand';
+  byId('term36-b').textContent = tv('{p} per maand', {p: euro(huurPm())});
 
   var sl = gekozenSlot || slotById('geen');
   byId('term-uitleg').textContent = betaalwijze === 'huur'
-    ? 'Montage is gratis. Je betaalt ' + euro(huurPm()) + ' per maand, te beginnen met de eerste maand: de betaallink krijg je na je bestelling per e-mail. '
-      + 'Minimaal 36 maanden, daarna maandelijks opzegbaar. Anker en slot blijven van Muurslot: zeg je op, dan halen we ze op voor ' + euro(HUUR_OPHALEN) + '. '
-      + 'Verhuis je, dan kan de huur over naar de nieuwe bewoner.'
-    : 'Na je bestelling krijg je een betaallink per e-mail. Kan het anker niet op de plek die jij aanwijst, dan krijg je je geld volledig terug.';
+    ? tv('Montage is gratis. Je betaalt {p} per maand, te beginnen met de eerste maand: de betaallink krijg je na je bestelling per e-mail. '
+      + 'Minimaal 36 maanden, daarna maandelijks opzegbaar. Anker en slot blijven van Muurslot: zeg je op, dan halen we ze op voor {ophalen}. '
+      + 'Verhuis je, dan kan de huur over naar de nieuwe bewoner.', {p: euro(huurPm()), ophalen: euro(HUUR_OPHALEN)})
+    : t('Na je bestelling krijg je een betaallink per e-mail. Kan het anker niet op de plek die jij aanwijst, dan krijg je je geld volledig terug.');
 }
 
 var gekozenSlot2 = null;
@@ -159,7 +161,7 @@ function vulTweeSlot(){
     btn.type = 'button';
     btn.className = 'twee-opt' + (o.id === start ? ' on' : '');
     btn.dataset.id = o.id;
-    btn.innerHTML = '<span class="twee-opt-naam">' + (sl.prijs ? slotNaam(sl) : 'Geen slot') + '</span>'
+    btn.innerHTML = '<span class="twee-opt-naam">' + (sl.prijs ? slotNaam(sl) : t('Geen slot')) + '</span>'
       + '<span class="twee-opt-pr">' + labelTweedeSlot(sl.prijs) + '</span>';
     btn.addEventListener('click', function(){
       Array.prototype.forEach.call(cont.children, function(x){ x.classList.remove('on'); });
@@ -189,12 +191,12 @@ function choose(id){
     });
   });
 
-  byId('adv-title').textContent = 'Voor ' + v.label;
-  byId('adv-lede').textContent  = v.lede;
+  byId('adv-title').textContent = tv('Voor {wie}', {wie: t(v.label)});
+  byId('adv-lede').textContent  = t(v.lede);
 
-  byId('adv-locknote').textContent = v.locknote;
+  byId('adv-locknote').textContent = t(v.locknote);
   toonOpties(v);
-  byId('adv-why').textContent = v.why;
+  byId('adv-why').textContent = t(v.why);
   toonAdvFilm(v.id);
   byId('boeken').classList.remove('uit');
 
@@ -212,21 +214,23 @@ function choose(id){
   }, 60);
 }
 
+/* Wat er naar ons gaat. Altijd in het Nederlands, ook als de klant de site in een andere taal leest.
+   taal en overzicht zijn voor de bevestigingsmail aan de klant, in de taal van de klant. */
 function verzamel(){
-  return {
+  var d = opNL(function(){ return {
     naam:     byId('f-naam').value.trim(),
     telefoon: byId('f-tel').value.trim(),
     email:    byId('f-mail').value.trim(),
     adres:    byId('f-adres').value.trim(),
     postcode: byId('f-pc').value.trim(),
     voertuig: huidig ? huidig.naam : 'niet opgegeven',
-    ankers:   tweeAan ? '2 (tweede anker ' + euro(MONTAGE_2) + ', slot ' + (gekozenSlot2 && gekozenSlot2.prijs ? slotNaam(gekozenSlot2) + ' ' + euro(gekozenSlot2.prijs) : 'geen') + ')' : '1',
+    ankers:   tweeAan ? '2 (tweede anker ' + euro(MONTAGE_2) + ', slot ' + (gekozenSlot2 && gekozenSlot2.prijs ? slotNaam(gekozenSlot2, true) + ' ' + euro(gekozenSlot2.prijs) : 'geen') + ')' : '1',
     betaling: betaalwijze === 'drie' ? 'drie termijnen via in3, ' + in3Tekst('x')
             : betaalwijze === 'huur' ? 'huur: montage gratis, ' + euro(huurPm()) + ' per maand (eerste maand via betaallink), minimaal 36 maanden, ophalen bij opzeggen ' + euro(HUUR_OPHALEN)
             : 'in een keer, ' + euro(totaal()),
     slotId:   gekozenSlot ? gekozenSlot.id : 'geen',
     slot:     gekozenSlot && gekozenSlot.prijs
-              ? slotNaam(gekozenSlot) + ' — ' + euro(gekozenSlot.prijs) : 'geen',
+              ? slotNaam(gekozenSlot, true) + ' — ' + euro(gekozenSlot.prijs) : 'geen',
     totaal:   euro(totaal()),
     toestemming: (byId('ak-vw') && byId('ak-vw').checked)
               ? 'Klant verklaarde eigenaar te zijn of toestemming te hebben om in deze muur te laten boren.'
@@ -240,17 +244,18 @@ function verzamel(){
     lengte:   byId('f-lengte').value.trim() || 'standaard',
     kruisje:  PLEK[0].kruisTekst(),
     kruisje2: tweeAan ? PLEK[1].kruisTekst() : ''
-  };
+  }; });
+  d.taal = TAAL;
+  d.overzicht = [
+    t('Voertuig') + DUBBELEPUNT + (huidig ? t(huidig.naam) : t('niet opgegeven')),
+    t('Slot') + DUBBELEPUNT + slotKlant(gekozenSlot),
+    t('Totaal') + DUBBELEPUNT + euro(totaal()),
+    t('Betaling') + DUBBELEPUNT + betaalTekst()
+  ].join('\n');
+  return d;
 }
-
-function toonBevestiging(d){
-  byId('done-txt').textContent =
-    'Dank je, ' + d.naam.split(' ')[0] + '. We hebben je aanvraag voor ' +
-    d.voertuig.toLowerCase() + ' binnen. Je hoort per e-mail op ' + d.email +
-    ' of het op de door jou gekozen plek kan, meestal dezelfde dag nog. Je hoort vooraf op welke dag we komen — thuis zijn hoeft niet.';
-  byId('done').classList.add('on');
-  byId('done').scrollIntoView({behavior:'smooth', block:'center'});
-}
+/* het slot zoals de klant het leest */
+function slotKlant(sl){ return sl && sl.prijs ? slotNaam(sl) + ' — ' + euro(sl.prijs) : t('geen'); }
 
 function mailLink(d){
   var regels = [
@@ -290,7 +295,7 @@ function alleOpties(v){
   v.opties.forEach(function(o){ gekozen[o.id] = o; });
   return SLOTEN.map(function(sl){
     if(gekozen[sl.id]) return gekozen[sl.id];
-    return {id: sl.id, tag: sl.prijs ? 'Schakels van ' + mm(sl.mm) : 'Ik regel zelf een ketting'};
+    return {id: sl.id, tag: sl.prijs ? 'Schakels van ' + mm(sl.mm) : 'Ik regel zelf een ketting', schakel: sl.prijs ? sl.mm : 0};
   });
 }
 
@@ -298,7 +303,7 @@ function toonOpties(v){
   opts.innerHTML = '';
   var knop = byId('alles');
   knop.hidden = (v.id === 'zelf');
-  knop.textContent = allesAan ? 'Alleen het advies tonen' : 'Alle sloten tonen';
+  knop.textContent = allesAan ? t('Alleen het advies tonen') : t('Alle sloten tonen');
   alleOpties(v).forEach(function(o){
     var sl = slotById(o.id);
     var b = document.createElement('button');
@@ -310,12 +315,12 @@ function toonOpties(v){
       '<span class="opt-mark" aria-hidden="true"></span>' +
       '<span class="opt-mid">' +
         '<span class="opt-top">' +
-          (sl.prijs ? '<b>' + sl.lengte + '</b><i class="opt-art">'
-                      + (sl.klasse ? 'ART-' + sl.klasse : 'geen ART') + '</i>'
-                    : '<b>Geen slot</b>') +
+          (sl.prijs ? '<b>' + lengteTekst(sl) + '</b><i class="opt-art">'
+                      + (sl.klasse ? 'ART-' + sl.klasse : t('geen ART')) + '</i>'
+                    : '<b>' + t('Geen slot') + '</b>') +
         '</span>' +
-        '<span class="opt-tag' + (o.advies ? ' is-advies' : '') + '">' + o.tag + '</span>' +
-        (sl.adviesprijs ? '<span class="opt-adv">Adviesprijs ' + euro(sl.adviesprijs) + '. Jij krijgt 10% korting.</span>' : '') +
+        '<span class="opt-tag' + (o.advies ? ' is-advies' : '') + '">' + tagTekst(o) + '</span>' +
+        (sl.adviesprijs ? '<span class="opt-adv">' + tv('Adviesprijs {p}. Jij krijgt 10% korting.', {p: euro(sl.adviesprijs)}) + '</span>' : '') +
       '</span>' +
       '<span class="opt-pr">' + labelSlot(sl.prijs) + '</span>';
     b.addEventListener('click', function(){ kiesSlot(sl.id); });
@@ -343,11 +348,12 @@ function herbereken(){
   termijnen();
   if(tweeAan) werkTweeSlotsBij();
   byId('twee-uitleg').innerHTML = betaalwijze === 'huur'
-    ? 'Een tweede anker kost minder, omdat we er toch staan. '
-      + (sl2.prijs ? 'Met het tweede slot erbij' : 'Zonder slot') + ' komt er <b>' + ctEuro(tweedeAnkerCt(sl2.prijs)) + ' per maand</b> bij.'
-    : 'Tweede anker <b>' + euro(MONTAGE_2) + '</b> in plaats van '
-      + '<s>' + euro(MONTAGE) + '</s>, omdat we er toch staan'
-      + (sl2.prijs ? ', plus ' + euro(sl2.prijs) + ' voor het tweede slot' : '') + '.';
+    ? tv(sl2.prijs ? 'Een tweede anker kost minder, omdat we er toch staan. Met het tweede slot erbij komt er <b>{p} per maand</b> bij.'
+                   : 'Een tweede anker kost minder, omdat we er toch staan. Zonder slot komt er <b>{p} per maand</b> bij.',
+         {p: ctEuro(tweedeAnkerCt(sl2.prijs))})
+    : tv(sl2.prijs ? 'Tweede anker <b>{p2}</b> in plaats van <s>{p1}</s>, omdat we er toch staan, plus {ps} voor het tweede slot.'
+                   : 'Tweede anker <b>{p2}</b> in plaats van <s>{p1}</s>, omdat we er toch staan.',
+         {p2: euro(MONTAGE_2), p1: euro(MONTAGE), ps: euro(sl2.prijs)});
   byId('adv-twee').classList.toggle('on', tweeAan);
   if(byId('plek2')) toonPlek2();
   byId('tweeTog').setAttribute('aria-checked', tweeAan ? 'true' : 'false');
@@ -355,9 +361,9 @@ function herbereken(){
   if(!huidig) return;
 
   var isHuur = betaalwijze === 'huur';
-  function bedrag(x){ return isHuur ? 'inbegrepen' : euro(x); }
+  function bedrag(x){ return isHuur ? t('inbegrepen') : euro(x); }
   byId('q-mont').textContent = bedrag(MONTAGE);
-  byId('q-montnaam').textContent = 'Muuranker + montage';
+  byId('q-montnaam').textContent = t('Muuranker + montage');
   byId('q-twee-row').hidden = !tweeAan;
   byId('q-twee').textContent = bedrag(MONTAGE_2);
   byId('q-lockname').textContent = slotNaam(sl);
@@ -365,11 +371,11 @@ function herbereken(){
   var toon2 = tweeAan && sl2.prijs > 0;
   byId('q-lock2-row').hidden = !toon2;
   if(toon2){
-    byId('q-lockname2').textContent = slotNaam(sl2) + ', tweede anker';
+    byId('q-lockname2').textContent = tv('{slot}, tweede anker', {slot: slotNaam(sl2)});
     byId('q-lock2').textContent = bedrag(sl2.prijs);
   }
   /* bij huur alleen het maandbedrag; de eenmalige waarde staat pas in de laatste stap */
-  byId('q-totnaam').textContent = isHuur ? 'Per maand' : 'Samen, eenmalig';
+  byId('q-totnaam').textContent = isHuur ? t('Per maand') : t('Samen, eenmalig');
   byId('q-tot').textContent     = isHuur ? euro(huurPm()) : euro(tot);
   byId('q-huur-row').hidden = true;
   knoppen();
@@ -378,8 +384,8 @@ function herbereken(){
   var w = byId('adv-warn');
   if(sl.prijs && sl.klasse < huidig.min){
     w.hidden = false;
-    w.textContent = 'Let op: ART-' + sl.klasse + ' zit onder het minimale advies van ART-' +
-                    huidig.min + ' voor ' + huidig.label + '. Je verzekeraar kan hier moeilijk over doen.';
+    w.textContent = tv('Let op: ART-{klasse} zit onder het minimale advies van ART-{min} voor {wie}. Je verzekeraar kan hier moeilijk over doen.',
+                       {klasse: sl.klasse, min: huidig.min, wie: t(huidig.label)});
   } else {
     w.hidden = true;
   }
@@ -423,30 +429,30 @@ function vulRecap(){
   byId('recap-kies').hidden   = !leeg;
   byId('recap-lines').hidden  = leeg;
   byId('wijzig').hidden       = leeg;
-  byId('recap-kop').textContent = leeg ? 'Eerst even dit' : 'Je keuze';
+  byId('recap-kop').textContent = leeg ? t('Eerst even dit') : t('Je keuze');
   if(leeg) return;
 
   var sl  = gekozenSlot  || slotById('geen');
   var sl2 = gekozenSlot2 || slotById('geen');
   var huur = betaalwijze === 'huur';
   function pr(x){ return euro(x); }
-  var h = regel((huur ? 'Muuranker' : 'Muuranker + montage') + (huidig ? ', ' + huidig.label : ''), pr(MONTAGE));
+  var h = regel(t(huur ? 'Muuranker' : 'Muuranker + montage') + (huidig ? ', ' + t(huidig.label) : ''), pr(MONTAGE));
   if(sl.prijs) h += regel(slotNaam(sl), pr(sl.prijs));
   if(tweeAan){
-    h += regel(huur ? 'Tweede muuranker' : 'Tweede muuranker + montage', pr(MONTAGE_2));
-    if(sl2.prijs) h += regel(slotNaam(sl2) + ', tweede anker', pr(sl2.prijs));
+    h += regel(t(huur ? 'Tweede muuranker' : 'Tweede muuranker + montage'), pr(MONTAGE_2));
+    if(sl2.prijs) h += regel(tv('{slot}, tweede anker', {slot: slotNaam(sl2)}), pr(sl2.prijs));
   }
   if(betaalwijze === 'huur'){
-    h += regel('Waarde van je bestelling', euro(totaal()));
-    h += regel('Montage', 'gratis');
-    h += '<div class="tot"><span>Eerste betaling, de eerste maand</span><b>' + euro(huurPm()) + '</b></div>';
-    h += regel('Daarna per maand, minimaal 36 maanden', euro(huurPm()));
-    h += regel('Ophalen als je opzegt', euro(HUUR_OPHALEN));
+    h += regel(t('Waarde van je bestelling'), euro(totaal()));
+    h += regel(t('Montage'), t('gratis'));
+    h += '<div class="tot"><span>' + t('Eerste betaling, de eerste maand') + '</span><b>' + euro(huurPm()) + '</b></div>';
+    h += regel(t('Daarna per maand, minimaal 36 maanden'), euro(huurPm()));
+    h += regel(t('Ophalen als je opzegt'), euro(HUUR_OPHALEN));
   } else if(betaalwijze === 'drie'){
-    h += '<div class="tot"><span>Samen</span><b>' + euro(totaal()) + '</b></div>';
-    h += regel('Via in3, in drie delen', in3Tekst());
+    h += '<div class="tot"><span>' + t('Samen') + '</span><b>' + euro(totaal()) + '</b></div>';
+    h += regel(t('Via in3, in drie delen'), in3Tekst());
   } else {
-    h += '<div class="tot"><span>Totaal</span><b>' + euro(totaal()) + '</b></div>';
+    h += '<div class="tot"><span>' + t('Totaal') + '</span><b>' + euro(totaal()) + '</b></div>';
   }
   byId('recap-lines').innerHTML = h;
 }
@@ -466,8 +472,8 @@ function extraCt(extra, basis){
 }
 function plusTekst(c){
   var huur = betaalwijze === 'huur';
-  if(!c) return huur ? '€0 p/m' : '€0';
-  return '+ ' + ctEuro(c) + (huur ? ' p/m' : '');
+  if(!c) return huur ? tv('{p} p/m', {p: euro(0)}) : euro(0);
+  return '+ ' + (huur ? tv('{p} p/m', {p: ctEuro(c)}) : ctEuro(c));
 }
 function eersteBasisCt(){ return ct(MONTAGE) + slotCt(gekozenSlot); }   /* eerste anker met zijn slot */
 function labelSlot(prijs){ return plusTekst(extraCt(ct(prijs), ct(MONTAGE))); }
@@ -480,7 +486,7 @@ function werkTweeSlotsBij(){
   Array.prototype.forEach.call(byId('twee-slot-opties').children, function(btn){
     var sl = slotById(btn.dataset.id);
     var naam = btn.querySelector('.twee-opt-naam'), pr = btn.querySelector('.twee-opt-pr');
-    if(naam) naam.textContent = sl.prijs ? slotNaam(sl) : 'Geen slot';
+    if(naam) naam.textContent = sl.prijs ? slotNaam(sl) : t('Geen slot');
     if(pr)   pr.textContent   = labelTweedeSlot(sl.prijs);
   });
 }
@@ -488,13 +494,19 @@ function werkTweeSlotsBij(){
 function vulCheck(){
   var d = verzamel();
   function fotoTekst(P){
-    return P.foto ? (P.merk ? 'met kruisje op de plek' : 'zonder kruisje') : 'geen foto';
+    return t(P.foto ? (P.merk ? 'met kruisje op de plek' : 'zonder kruisje') : 'geen foto');
   }
-  var r = [['Aantal ankers', d.ankers], ['Voertuig', d.voertuig], ['Slot', d.slot], ['Betaling', betaalTekst()],
-           ['Naam', d.naam], ['Telefoon', d.telefoon], ['E-mail', d.email],
-           ['Adres', d.adres + ', ' + d.postcode],
-           [tweeAan ? 'Plek 1' : 'Plek voor het anker', d.plek + ' — ' + fotoTekst(PLEK[0])]];
-  if(tweeAan) r.push(['Plek 2', d.plek2 + ' — ' + fotoTekst(PLEK[1])]);
+  function plekTekst(P){ return P.omschrijving() || t('nog niet opgegeven'); }
+  /* wat de klant hier leest, in zijn eigen taal; verzamel() blijft Nederlands voor ons */
+  var ankers = tweeAan
+    ? tv('2 (tweede anker {p}, slot {slot})', {p: euro(MONTAGE_2), slot: slotKlant(gekozenSlot2)})
+    : '1';
+  var r = [[t('Aantal ankers'), ankers], [t('Voertuig'), huidig ? t(huidig.naam) : t('niet opgegeven')],
+           [t('Slot'), slotKlant(gekozenSlot)], [t('Betaling'), betaalTekst()],
+           [t('Naam'), d.naam], [t('Telefoon'), d.telefoon], [t('E-mail'), d.email],
+           [t('Adres'), d.adres + ', ' + d.postcode],
+           [t(tweeAan ? 'Plek 1' : 'Plek voor het anker'), plekTekst(PLEK[0]) + ' — ' + fotoTekst(PLEK[0])]];
+  if(tweeAan) r.push([t('Plek 2'), plekTekst(PLEK[1]) + ' — ' + fotoTekst(PLEK[1])]);
   byId('check').innerHTML = r.map(function(x){
     return '<div><span>' + x[0] + '</span><b>' + x[1] + '</b></div>'; }).join('');
   knoppen();
@@ -530,7 +542,7 @@ function maakPlek(n){
       el('kruis').hidden = true;
       el('kruis-weg').hidden = true;
       el('wenk').hidden = false;
-      el('prev-tip').textContent = 'Tik nu op de foto om de plek aan te wijzen';
+      el('prev-tip').textContent = t('Tik nu op de foto om de plek aan te wijzen');
       el('prev-tip').classList.remove('gezet');
       el('drop-btn').hidden = true;
       el('drop').classList.add('vol');
@@ -556,7 +568,7 @@ function maakPlek(n){
     k.hidden = false;
     el('kruis-weg').hidden = false;
     el('wenk').hidden = true;
-    el('prev-tip').textContent = 'Hier komt het anker. Tik ergens anders om het te verplaatsen.';
+    el('prev-tip').textContent = t('Hier komt het anker. Tik ergens anders om het te verplaatsen.');
     el('prev-tip').classList.add('gezet');
   }
 
@@ -565,7 +577,7 @@ function maakPlek(n){
     el('kruis').hidden = true;
     this.hidden = true;
     el('wenk').hidden = false;
-    el('prev-tip').textContent = 'Tik nu op de foto om de plek aan te wijzen';
+    el('prev-tip').textContent = t('Tik nu op de foto om de plek aan te wijzen');
     el('prev-tip').classList.remove('gezet');
   });
 
@@ -580,7 +592,7 @@ function maakPlek(n){
   function neem(f){
     if(f.size > MAX_ORIGINEEL){
       P.weg();
-      fotoFout('Die foto is groter dan 25 MB. Kies een kleinere foto, of stuur hem later per e-mail.');
+      fotoFout(t('Die foto is groter dan 25 MB. Kies een kleinere foto, of stuur hem later per e-mail.'));
       return;
     }
     P.toon(f);
@@ -595,7 +607,7 @@ function maakPlek(n){
   el('drop-prev').addEventListener('error', function(){
     if(!P.foto) return;
     P.weg();
-    fotoFout('Deze foto kunnen we niet laten zien. Kies een foto als JPG of PNG.');
+    fotoFout(t('Deze foto kunnen we niet laten zien. Kies een foto als JPG of PNG.'));
   });
 
   ['dragover','dragenter'].forEach(function(t){
@@ -681,20 +693,19 @@ byId('naar3').addEventListener('click', function(){
     if(!el.value.trim()){
       var f = byId('stap2-err');
       f.hidden = false;
-      f.textContent = 'Vul nog even ' + velden[i][1] + ' in.';
+      f.textContent = tv('Vul nog even {veld} in.', {veld: t(velden[i][1])});
       el.focus(); return;
     }
   }
   if(byId('f-mail').value.indexOf('@') < 1){
     byId('stap2-err').hidden = false;
-    byId('stap2-err').textContent = 'Dat e-mailadres klopt nog niet.';
+    byId('stap2-err').textContent = t('Dat e-mailadres klopt nog niet.');
     byId('f-mail').focus(); return;
   }
   for(var j=0; j < (tweeAan ? 2 : 1); j++){
     if(PLEK[j].foto && !PLEK[j].merk){
       byId('stap2-err').hidden = false;
-      byId('stap2-err').textContent = 'Zet nog even een kruisje op de foto van plek ' + (j+1)
-        + ', dan weten we precies waar we moeten boren.';
+      byId('stap2-err').textContent = tv('Zet nog even een kruisje op de foto van plek {n}, dan weten we precies waar we moeten boren.', {n: j+1});
       byId('prev-wrap' + (j+1)).scrollIntoView({behavior:'smooth', block:'center'});
       return;
     }
@@ -709,8 +720,8 @@ byId('betaal').addEventListener('click', function(){
   if(!byId('ak-start').checked || !byId('ak-vw').checked){
     byId('ak-err').hidden = false;
     byId('ak-err').textContent = !byId('ak-start').checked
-      ? 'Zet nog even een vinkje bij de eerste regel. Zonder dat verzoek mogen we niet binnen veertien dagen komen monteren.'
-      : 'Zet nog even een vinkje bij de voorwaarden.';
+      ? t('Zet nog even een vinkje bij de eerste regel. Zonder dat verzoek mogen we niet binnen veertien dagen komen monteren.')
+      : t('Zet nog even een vinkje bij de voorwaarden.');
     (byId('ak-start').checked ? byId('ak-vw') : byId('ak-start')).focus();
     return;
   }
@@ -720,10 +731,11 @@ byId('betaal').addEventListener('click', function(){
 
   function klaar(){
     byId('done-txt').textContent =
-      'Dank je, ' + d.naam.split(' ')[0] + '. Je bestelling staat genoteerd (' + bedragTekst(false) + '). ' +
-      'Je hoort op ' + d.email + ' of het op de door jou gekozen plek kan, en op welke dag we komen. Thuis zijn hoeft niet: je kettingslot hangt bij ons vertrek al door het anker en de sleutels gaan door je brievenbus. ' +
-      'Je ontvangt de betaallink per e-mail; na de montage krijg je een gedateerd fotoverslag voor je verzekeraar.' +
-      (PLEK[0].foto ? '' : ' Stuur je nog even een foto van de muur mee als antwoord op die mail?');
+      tv('Dank je, {naam}. Je bestelling staat genoteerd ({bedrag}). '
+        + 'Je hoort op {mail} of het op de door jou gekozen plek kan, en op welke dag we komen. Thuis zijn hoeft niet: je kettingslot hangt bij ons vertrek al door het anker en de sleutels gaan door je brievenbus. '
+        + 'Je ontvangt de betaallink per e-mail; na de montage krijg je een gedateerd fotoverslag voor je verzekeraar.',
+        {naam: d.naam.split(' ')[0], bedrag: bedragTekst(false), mail: d.email}) +
+      (PLEK[0].foto ? '' : ' ' + t('Stuur je nog even een foto van de muur mee als antwoord op die mail?'));
     byId('done').classList.add('on');
     byId('stap3').hidden = true;
     scrollNaar(byId('done'));
@@ -735,19 +747,18 @@ byId('betaal').addEventListener('click', function(){
   fout.hidden = true;
   function mislukt(foto){
     fout.innerHTML = foto
-      ? '<b>We konden je foto niet klein genoeg maken om te versturen.</b>'
-        + 'Ga terug naar je gegevens, haal de foto weg en probeer het nog eens. Stuur de foto daarna per e-mail naar ' + ONS_MAILADRES + '.'
-      : '<b>Het versturen is niet gelukt.</b>'
+      ? tv('<b>We konden je foto niet klein genoeg maken om te versturen.</b>'
+        + 'Ga terug naar je gegevens, haal de foto weg en probeer het nog eens. Stuur de foto daarna per e-mail naar {mail}.', {mail: ONS_MAILADRES})
+      : tv('<b>Het versturen is niet gelukt.</b>'
         + 'Je gegevens staan nog hier. Probeer het over een paar minuten nog eens. '
-        + 'Lukt het dan weer niet, '
-        + '<a href="' + mailLink(d) + '">stuur je bestelling per e-mail</a>.';
+        + 'Lukt het dan weer niet, <a href="{link}">stuur je bestelling per e-mail</a>.', {link: mailLink(d)});
     fout.hidden = false;
     knop.disabled = false; knoppen();
     fout.scrollIntoView({behavior:'smooth', block:'center'});
   }
 
   if(BETAAL_ENDPOINT){
-    knop.disabled = true; knop.textContent = 'Even geduld…';
+    knop.disabled = true; knop.textContent = t('Even geduld…');
     fetch(BETAAL_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify(d)})
       .then(function(r){ return r.json(); })
@@ -757,7 +768,7 @@ byId('betaal').addEventListener('click', function(){
   }
 
   if(FORM_ENDPOINT){
-    knop.disabled = true; knop.textContent = 'Versturen…';
+    knop.disabled = true; knop.textContent = t('Versturen…');
     PLEK[0].metKruis(function(ok1, b1){
      PLEK[1].metKruis(function(ok2, b2){
       if(!ok1 || (tweeAan && !ok2)) return mislukt(true);
@@ -784,12 +795,12 @@ byId('betaal').addEventListener('click', function(){
 
 /* ---------- beeldcarrousel ---------- */
 var SLIDES = [
-  { beeld: window.matchMedia('(min-width: 700px)').matches ? 'img/muuranker-gevel.jpg' : 'img/muuranker-gevel-800.jpg', pos:'center 42%',
-    kop:'ART-4 muuranker, gemonteerd', prijs:'€3,19 per maand', bij:'of €99,95 in één keer' },
-  { beeld:'img/kettingslot-door-anker.jpg',  pos:'center 55%',
-    kop:'Kettingslot door het anker',  prijs:'in je maandbedrag', bij:'ART-2 tot ART-5' },
-  { beeld:'img/anker-schuur-garage.jpg',   pos:'center 45%',
-    kop:'Ook in de schuur of garage',  prijs:'€2,23 per maand', bij:'tweede anker, zelfde bezoek' }
+  { beeld: window.matchMedia('(min-width: 700px)').matches ? '/img/muuranker-gevel.jpg' : '/img/muuranker-gevel-800.jpg', pos:'center 42%',
+    kop:t('ART-4 muuranker, gemonteerd'), prijs:tv('{p} per maand', {p: euro(3.19)}), bij:tv('of {p} in één keer', {p: euro(MONTAGE)}) },
+  { beeld:'/img/kettingslot-door-anker.jpg',  pos:'center 55%',
+    kop:t('Kettingslot door het anker'),  prijs:t('in je maandbedrag'), bij:t('ART-2 tot ART-5') },
+  { beeld:'/img/anker-schuur-garage.jpg',   pos:'center 45%',
+    kop:t('Ook in de schuur of garage'),  prijs:tv('{p} per maand', {p: euro(2.23)}), bij:t('tweede anker, zelfde bezoek') }
 ];
 
 var cara = byId('cara'), dots = byId('cara-dots'), nu = 0, loopt = null;
@@ -807,7 +818,7 @@ SLIDES.forEach(function(sl, i){
   else d.dataset.beeld = sl.beeld;
   d.style.backgroundPosition = sl.pos;
   d.setAttribute('role','group');
-  d.setAttribute('aria-label', (i+1) + ' van ' + SLIDES.length + ': ' + sl.kop);
+  d.setAttribute('aria-label', tv('{n} van {totaal}: {kop}', {n: i+1, totaal: SLIDES.length, kop: sl.kop}));
   d.innerHTML = '<div class="cara-kaart"><p class="cara-kop">' + sl.kop + '</p>' +
                 '<p class="cara-prijs">' + (sl.prijs || euro(MONTAGE_2)) + '</p>' +
                 '<p class="cara-bij">' + sl.bij + '</p></div>';
@@ -881,8 +892,8 @@ function toonAdvFilm(voertuig){
   kaart.dataset.film = id;
   byId('adv-film-img').src = FILMS[id].poster;
   byId('adv-film-tijd').textContent = f.tijd;
-  byId('adv-film-sub').textContent = f.naam + ', ' + f.waar;
-  kaart.setAttribute('aria-label', 'Bekijk het filmpje: ' + f.naam.toLowerCase() + ' ' + f.waar);
+  byId('adv-film-sub').textContent = t(f.naam) + KOMMA + t(f.waar);
+  kaart.setAttribute('aria-label', tv('Bekijk het filmpje: {wat}', {wat: t(f.naam) + KOMMA + t(f.waar)}));
   kaart.hidden = false;
 }
 

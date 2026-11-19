@@ -10,7 +10,7 @@ var dslot = byId('d-slot');
 SLOTEN.forEach(function(sl){
   var o = document.createElement('option');
   o.value = sl.id;
-  o.textContent = sl.prijs ? slotNaam(sl) + ' — ' + euro(sl.prijs) : 'Geen slot';
+  o.textContent = sl.prijs ? slotNaam(sl) + ' — ' + euro(sl.prijs) : t('Geen slot');
   dslot.appendChild(o);
 });
 dslot.value = 'k180';
@@ -33,11 +33,11 @@ function dealerBedragen(){
 VOERTUIGEN.forEach(function(v){
   if(v.id === 'zelf') return;
   var o = document.createElement('option');
-  o.value = v.id; o.textContent = v.naam;
+  o.value = v.id; o.textContent = t(v.naam);
   dsel.appendChild(o);
 });
 var oAnders = document.createElement('option');
-oAnders.value = 'anders'; oAnders.textContent = 'Iets anders';
+oAnders.value = 'anders'; oAnders.textContent = t('Iets anders');
 dsel.appendChild(oAnders);
 
 /* Kwam de dealer binnen via zijn eigen link (?ref=...)? Dan de code alvast invullen en het formulier tonen. */
@@ -67,16 +67,18 @@ byId('d-stuur').addEventListener('click', function(){
   for(var i=0; i<velden.length; i++){
     if(!byId(velden[i][0]).value.trim()){
       byId('d-err').hidden = false;
-      byId('d-err').textContent = 'Vul nog even ' + velden[i][1] + ' in.';
+      byId('d-err').textContent = tv('Vul nog even {veld} in.', {veld: t(velden[i][1])});
       byId(velden[i][0]).focus();
       return;
     }
   }
   byId('d-err').hidden = true;
 
-  var v = dsel.options[dsel.selectedIndex].text;
+  /* de opdracht naar ons blijft Nederlands, ook als de dealer de site in een andere taal leest */
+  var vk = VOERTUIGEN.filter(function(x){ return x.id === dsel.value; })[0];
+  var v = vk ? vk.naam : 'Iets anders';
   var g = dealerBedragen();
-  var regels = [
+  var regels = opNL(function(){ return [
     'DEALEROPDRACHT',
     '',
     'Dealercode: ' + byId('d-code').value.trim(),
@@ -89,7 +91,7 @@ byId('d-stuur').addEventListener('click', function(){
     'Adres: '      + byId('d-kadres').value.trim(),
     '',
     'Voertuig: '   + v,
-    'Slot: '       + (g.slot.prijs ? slotNaam(g.slot) : 'geen'),
+    'Slot: '       + (g.slot.prijs ? slotNaam(g.slot, true) : 'geen'),
     'Tweede anker: '+ (byId('d-twee').checked ? 'ja' : 'nee'),
     '',
     'Op de bon van de klant: ' + euro(g.bon),
@@ -98,8 +100,8 @@ byId('d-stuur').addEventListener('click', function(){
     '',
     'Opmerkingen: '+ (byId('d-opm').value.trim() || 'geen'),
     '',
-    'Aangemeld op ' + new Date().toLocaleString('nl-NL') + ' via muurslot.com'
-  ].join('\n');
+    'Aangemeld op ' + new Date().toLocaleString('nl-NL') + ' via muurslot.com' + (TAAL !== 'nl' ? ' (' + TAAL + ')' : '')
+  ].join('\n'); });
 
   var dealerLink = 'mailto:' + ONS_MAILADRES +
     '?subject=' + encodeURIComponent('Dealeropdracht ' + byId('d-code').value.trim() + ' — ' + byId('d-knaam').value.trim()) +
@@ -108,16 +110,16 @@ byId('d-stuur').addEventListener('click', function(){
   /* "Bedankt" staat pas in beeld als de opdracht echt binnen is. Lukt het niet, dan zeggen we dat. */
   function dealerKlaar(){
     byId('d-done-txt').textContent =
-      'Bedankt. Zet ' + euro(g.bon) + ' op de bon van ' + byId('d-knaam').value.trim() +
-      '. Wij nemen binnen een werkdag contact op om de plek af te stemmen en de montagedag in te plannen. ' +
-      'Daarna sturen we jou een factuur van ' + euro(g.fact) + ', je commissie van ' + euro(g.com) + ' is er dan al vanaf.';
+      tv('Bedankt. Zet {bon} op de bon van {klant}. Wij nemen binnen een werkdag contact op om de plek af te stemmen en de montagedag in te plannen. '
+        + 'Daarna sturen we jou een factuur van {factuur}, je commissie van {commissie} is er dan al vanaf.',
+        {bon: euro(g.bon), klant: byId('d-knaam').value.trim(), factuur: euro(g.fact), commissie: euro(g.com)});
     byId('d-done').classList.add('on');
     scrollNaar(byId('d-done'));
   }
 
   if(FORM_ENDPOINT){
     var knopD = byId('d-stuur');
-    knopD.disabled = true; knopD.textContent = 'Versturen…';
+    knopD.disabled = true; knopD.textContent = t('Versturen…');
     var fdd = new FormData();
     fdd.append('form-name', 'dealer');
     fdd.append('dealercode', byId('d-code').value.trim());
@@ -127,13 +129,12 @@ byId('d-stuur').addEventListener('click', function(){
     fetch(FORM_ENDPOINT, {method:'POST', headers:{'Accept':'application/json'}, body:fdd})
       .then(function(r){ return r.ok; }, function(){ return false; })
       .then(function(gelukt){
-        knopD.disabled = false; knopD.textContent = 'Opdracht aanmelden';
+        knopD.disabled = false; knopD.textContent = t('Opdracht aanmelden');
         if(gelukt){ dealerKlaar(); return; }
         var e = byId('d-err');
-        e.innerHTML = '<b>Het versturen is niet gelukt.</b>'
+        e.innerHTML = tv('<b>Het versturen is niet gelukt.</b>'
           + 'Je gegevens staan nog hier. Probeer het over een paar minuten nog eens. '
-          + 'Lukt het dan weer niet, '
-          + '<a href="' + dealerLink + '">mail de opdracht</a>.';
+          + 'Lukt het dan weer niet, <a href="{link}">mail de opdracht</a>.', {link: dealerLink});
         e.hidden = false;
         e.scrollIntoView({behavior:'smooth', block:'center'});
       });
