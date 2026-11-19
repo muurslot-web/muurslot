@@ -1,0 +1,8 @@
+{
+  "name": "muurslot",
+  "private": true,
+  "description": "Muurslot.com is een gewone site zonder bouwstap. Dit bestand is er alleen voor de bezoekersteller (netlify/functions/teller.mjs), die @netlify/blobs nodig heeft.",
+  "dependencies": {
+    "@netlify/blobs": "8.2.0"
+  }
+}

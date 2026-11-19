@@ -238,6 +238,31 @@ def herschrijf_url(u, taal):
     return u
 
 
+def film_in_taal(u, taal):
+    """Een filmpje (of zijn voorplaat) waarvan een versie in deze taal bestaat, wijst naar /film/<taal>/."""
+    for voor in (SITE + '/film/', '/film/'):
+        if u.startswith(voor):
+            naam = u[len(voor):]
+            if '/' not in naam and (MAP / 'film' / taal / naam).exists():
+                return voor + taal + '/' + naam
+    return u
+
+
+def films_in_json_ld(obj, taal):
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if isinstance(v, str):
+                obj[k] = film_in_taal(v, taal)
+            else:
+                films_in_json_ld(v, taal)
+    elif isinstance(obj, list):
+        for i, v in enumerate(obj):
+            if isinstance(v, str):
+                obj[i] = film_in_taal(v, taal)
+            else:
+                films_in_json_ld(v, taal)
+
+
 def vertaal_pagina(pagina, taal, W, mis):
     bron = (MAP / (pagina + '.html')).read_text(encoding='utf-8')
     soup = BeautifulSoup(bron, 'html.parser')
@@ -262,13 +287,14 @@ def vertaal_pagina(pagina, taal, W, mis):
     for s in soup.find_all('script', type='application/ld+json'):
         obj = json.loads(s.string)
         vertaal_json_ld(obj, W, mis, taal, pagina)
+        films_in_json_ld(obj, taal)
         s.string = '\n' + json.dumps(obj, ensure_ascii=False, indent=2) + '\n'
 
     # adressen: pagina's naar /<taal>/, foto's, scripts en filmpjes naar de gedeelde map
     for el in soup.find_all(True):
         for a in ('href', 'src', 'poster'):
             if el.has_attr(a):
-                el[a] = herschrijf_url(el[a], taal)
+                el[a] = film_in_taal(herschrijf_url(el[a], taal), taal)
     html_el = soup.find('html')
     html_el['lang'] = HTML_LANG[taal]
     canon = soup.find('link', rel='canonical')
