@@ -204,7 +204,7 @@ function openFilm(id, knop){
   kijkTerug = knop || null;
   byId('kijk-naam').textContent = t(f.naam) + KOMMA + t(f.waar);
   byId('kijk-fout').hidden = true;
-  kijkVideo.src = f.src;
+  kijkVideo.src = TAAL === 'nl' ? f.src : f.src.replace('/film/', '/film/' + TAAL + '/');   // elk filmpje heeft een versie met tekst in de taal van de pagina
   kijk.hidden = false;
   document.body.style.overflow = 'hidden';
   maatFilm();
