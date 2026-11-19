@@ -253,6 +253,22 @@
         <p class="dicht-uitleg"><b>Bestellen kan nog niet.</b> Je ziet hier alvast wat het kost.</p>
       </div>
     </div>
+
+    <!-- inschrijving zolang bestellen dicht is (zie js/bestellen.js); verdwijnt vanzelf als bestellen opengaat -->
+    <div class="inschrijf" id="inschrijf">
+      <p class="inschrijf-kop">Hoor het als eerste</p>
+      <p class="inschrijf-uitleg">Laat je gegevens achter. Zodra we in jouw buurt monteren, krijg je van ons een mail.</p>
+      <div class="form inschrijf-velden" id="ins-velden">
+        <div><label for="ins-naam">Naam</label><input id="ins-naam" autocomplete="name"></div>
+        <div><label for="ins-pc">Postcode</label><input id="ins-pc" autocomplete="postal-code" maxlength="7"></div>
+        <div class="f-wide"><label for="ins-mail">E-mail</label><input id="ins-mail" type="email" autocomplete="email"></div>
+        <div class="ins-honing" aria-hidden="true"><input id="ins-leeg" tabindex="-1" autocomplete="off"></div>
+      </div>
+      <p class="ins-fout" id="ins-fout" role="alert" hidden></p>
+      <p class="inschrijf-knop" id="ins-knop-rij"><button class="btn" type="button" id="ins-ok">Houd me op de hoogte</button></p>
+      <p class="inschrijf-klaar" id="ins-klaar" role="status" hidden></p>
+      <p class="inschrijf-klein">We mailen je alleen hierover en bewaren je gegevens hoogstens een jaar. <button type="button" class="inline-link" data-doc="pv">Privacyverklaring</button></p>
+    </div>
   </div>
 </div>
 
@@ -490,6 +506,7 @@
 <form name="bestelling" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" hidden><input name="bot-field"><input name="naam"><input name="telefoon"><input name="email"><input name="adres"><input name="postcode"><input name="voertuig"><input name="ankers"><input name="betaling"><input name="slotId"><input name="slot"><input name="totaal"><input name="toestemming"><input name="akkoord"><input name="plek"><input name="plek2"><input name="lengte"><input name="kruisje"><input name="kruisje2"><input name="taal"><input name="overzicht"><input type="file" name="foto1"><input type="file" name="foto2"></form>
 <form name="herroeping" data-netlify="true" netlify-honeypot="bot-field" hidden><input name="bot-field"><input name="soort"><input name="naam"><input name="bestelling"><input name="email"><input name="moment"><input name="taal"></form>
 <form name="dealer" data-netlify="true" netlify-honeypot="bot-field" hidden><input name="bot-field"><input name="dealercode"><input name="zaak"><input name="klant"><textarea name="opdracht"></textarea></form>
+<form name="inschrijving" data-netlify="true" netlify-honeypot="bot-field" hidden><input name="bot-field"><input name="naam"><input name="postcode"><input name="email"><input name="voertuig"><input name="taal"></form>
 
 </div>
 </body>

@@ -902,3 +902,45 @@ function toonAdvFilm(voertuig){
   var m = location.search.match(/[?&]voertuig=([a-z]+)/);
   if(m && VOERTUIGEN.some(function(v){ return v.id === m[1]; })) choose(m[1]);
 })();
+
+/* ---------- inschrijving zolang bestellen dicht is ----------
+   Op de plek van de bestelknop: naam, postcode en e-mail, met het voertuig dat de bezoeker koos.
+   Gaat naar Netlify Forms (formulier 'inschrijving'). Op de site staat dat we alleen hierover mailen
+   en de gegevens hoogstens een jaar bewaren: wis inschrijvingen in Netlify dus na een jaar. */
+(function(){
+  var knop = byId('ins-ok');
+  if(!knop || BESTELLEN_OPEN) return;
+  function fout(tekst){ var f = byId('ins-fout'); f.textContent = tekst; f.hidden = !tekst; }
+  function verstuur(){
+    var naam = byId('ins-naam').value.trim(), mail = byId('ins-mail').value.trim();
+    var pc = byId('ins-pc').value.toUpperCase().replace(/\s+/g, '');
+    if(!naam || !/^[1-9][0-9]{3}[A-Z]{2}$/.test(pc) || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){
+      fout(t('Vul je naam, een postcode zoals 1234 AB en een geldig e-mailadres in.'));
+      return;
+    }
+    fout('');
+    pc = pc.slice(0, 4) + ' ' + pc.slice(4);
+    knop.disabled = true;
+    var velden = {'form-name': 'inschrijving', 'bot-field': byId('ins-leeg').value, naam: naam, postcode: pc, email: mail,
+      voertuig: huidig ? huidig.naam : '', taal: TAAL};
+    fetch(FORM_ENDPOINT || '/', {method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json'},
+      body: new URLSearchParams(velden).toString()})
+      .then(function(r){
+        if(!r.ok) throw 0;
+        byId('ins-velden').hidden = true;
+        byId('ins-knop-rij').hidden = true;
+        var k = byId('ins-klaar');
+        k.textContent = tv('Dank je, {naam}. Je hoort het als eerste als we in de buurt van {postcode} monteren.', {naam: naam, postcode: pc});
+        k.hidden = false;
+      })
+      .catch(function(){
+        knop.disabled = false;
+        fout(tv('Het versturen is niet gelukt. Probeer het zo nog eens, of mail naar {mail}.', {mail: ONS_MAILADRES}));
+      });
+  }
+  knop.addEventListener('click', verstuur);
+  ['ins-naam', 'ins-pc', 'ins-mail'].forEach(function(id){
+    byId(id).addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); verstuur(); } });
+    byId(id).addEventListener('input', function(){ fout(''); });
+  });
+})();
