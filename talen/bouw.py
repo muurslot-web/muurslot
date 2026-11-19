@@ -60,12 +60,17 @@ def url(taal, pagina):
     return ('/' if taal == 'nl' else '/' + taal + '/') + pad
 
 
+def vlag(taal):
+    """Een vlaggetje bij de taal (de vlaggen zelf staan in css/site.css, als kleine plaatjes in de stijl)."""
+    return '<span class="vlag vlag-%s" aria-hidden="true"></span>' % taal
+
+
 def links(taal, pagina, klasse=''):
     uit = []
     for t in ['nl'] + actief():
         huidig = ' aria-current="true"' if t == taal else ''
-        uit.append('<a%s href="%s" hreflang="%s" lang="%s"%s>%s</a>' % (
-            (' class="%s"' % klasse) if klasse else '', url(t, pagina), HREFLANG[t], HREFLANG[t], huidig, NAAM[t]))
+        uit.append('<a%s href="%s" hreflang="%s" lang="%s"%s>%s%s</a>' % (
+            (' class="%s"' % klasse) if klasse else '', url(t, pagina), HREFLANG[t], HREFLANG[t], huidig, vlag(t), NAAM[t]))
     return uit
 
 
@@ -78,8 +83,8 @@ def blok_kop(pagina):
 
 
 def blok_keuze(taal, pagina):
-    return ('<details class="taal">\n      <summary aria-label="%s: %s">%s</summary>\n      <div class="taal-lijst">\n        %s\n      </div>\n    </details>'
-            % (TAALLABEL[taal], NAAM[taal], CODE[taal], '\n        '.join(links(taal, pagina))))
+    return ('<details class="taal">\n      <summary aria-label="%s: %s">%s<span class="taal-code">%s</span></summary>\n      <div class="taal-lijst">\n        %s\n      </div>\n    </details>'
+            % (TAALLABEL[taal], NAAM[taal], vlag(taal), CODE[taal], '\n        '.join(links(taal, pagina))))
 
 
 def blok_menu(taal, pagina):

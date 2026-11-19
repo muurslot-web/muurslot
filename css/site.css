@@ -825,16 +825,26 @@ footer a{color:var(--zinc)}
 .taal[open] summary::after{transform:translateY(1px) rotate(-135deg)}
 .taal-lijst{position:absolute;right:0;top:calc(100% + 6px);min-width:170px;display:grid;padding:6px;z-index:50;
   background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:0 14px 28px rgba(0,0,0,.12)}
-.taal-lijst a{display:block;padding:10px 12px;border-radius:4px;color:var(--ink);text-decoration:none;font-size:15px}
+.taal-lijst a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:4px;color:var(--ink);text-decoration:none;font-size:15px}
 .taal-lijst a:hover{background:var(--paper)}
 .taal-lijst a[aria-current]{color:var(--oranje);font-weight:600}
 .menu .menu-talen{display:flex;flex-wrap:wrap;gap:0 20px;padding-top:10px}
-.menu .menu-talen a{border:0;padding:10px 0;font-family:var(--body);font-weight:600;font-size:15px;color:var(--zinc)}
+.menu .menu-talen a{display:inline-flex;align-items:center;gap:8px;border:0;padding:10px 0;font-family:var(--body);font-weight:600;font-size:15px;color:var(--zinc)}
 .menu .menu-talen a[aria-current]{color:var(--oranje)}
 .foot-talen{display:flex;flex-wrap:wrap;gap:4px 20px;margin-top:26px;padding-top:16px;border-top:1px solid var(--line-soft);font-size:15px}
-.foot-talen a{display:inline-block;padding:6px 0;color:var(--zinc);text-decoration:none}
+.foot-talen a{display:inline-flex;align-items:center;gap:8px;padding:6px 0;color:var(--zinc);text-decoration:none}
 .foot-talen a:hover{color:var(--ink)}
 .foot-talen a[aria-current]{color:var(--oranje);font-weight:600}
+/* op een telefoon alleen de vlag in de knop bovenaan, anders past de balk niet */
+@media(max-width:420px){.taal summary .taal-code{display:none}}
+/* vlaggetjes bij de talen: 4 bij 3, met een dun randje zodat het wit van de vlag niet wegvalt */
+.vlag{display:inline-block;flex:none;width:20px;height:15px;border-radius:2px;background-size:cover;background-position:center;
+  box-shadow:inset 0 0 0 1px rgba(28,25,23,.16)}
+.vlag-nl{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 6'%3E%3Cpath fill='%2321468b' d='M0 0h9v6H0z'/%3E%3Cpath fill='%23fff' d='M0 0h9v4H0z'/%3E%3Cpath fill='%23ae1c28' d='M0 0h9v2H0z'/%3E%3C/svg%3E")}
+.vlag-en{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3CclipPath id='a'%3E%3Cpath d='M0 0v30h60V0z'/%3E%3C/clipPath%3E%3CclipPath id='b'%3E%3Cpath d='M30 15h30v15zv15H0zH0V0zV0h30z'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23a)'%3E%3Cpath fill='%23012169' d='M0 0v30h60V0z'/%3E%3Cpath stroke='%23fff' stroke-width='6' d='M0 0l60 30m0-30L0 30'/%3E%3Cpath stroke='%23c8102e' stroke-width='4' clip-path='url(%23b)' d='M0 0l60 30m0-30L0 30'/%3E%3Cpath stroke='%23fff' stroke-width='10' d='M30 0v30M0 15h60'/%3E%3Cpath stroke='%23c8102e' stroke-width='6' d='M30 0v30M0 15h60'/%3E%3C/g%3E%3C/svg%3E")}
+.vlag-de{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 3'%3E%3Cpath d='M0 0h5v3H0z'/%3E%3Cpath fill='%23d00' d='M0 1h5v2H0z'/%3E%3Cpath fill='%23ffce00' d='M0 2h5v1H0z'/%3E%3C/svg%3E")}
+.vlag-es{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 750 500'%3E%3Cpath fill='%23aa151b' d='M0 0h750v500H0z'/%3E%3Cpath fill='%23f1bf00' d='M0 125h750v250H0z'/%3E%3C/svg%3E")}
+.vlag-zh{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Cpath fill='%23de2910' d='M0 0h30v20H0z'/%3E%3Cpath fill='%23ffde00' d='M5.000 2.000L5.674 4.073L7.853 4.073L6.090 5.354L6.763 7.427L5.000 6.146L3.237 7.427L3.910 5.354L2.147 4.073L4.326 4.073ZM9.143 2.514L9.620 1.966L9.246 1.343L9.914 1.628L10.391 1.080L10.328 1.803L10.996 2.088L10.288 2.251L10.224 2.975L9.851 2.352ZM11.010 4.141L11.662 3.821L11.560 3.102L12.065 3.624L12.718 3.304L12.378 3.946L12.884 4.467L12.168 4.343L11.829 4.985L11.726 4.266ZM11.038 6.725L11.765 6.699L11.964 6.001L12.213 6.683L12.939 6.657L12.367 7.105L12.616 7.787L12.014 7.382L11.442 7.830L11.641 7.131ZM9.219 8.375L9.899 8.632L10.353 8.064L10.319 8.790L10.999 9.046L10.298 9.239L10.265 9.964L9.865 9.357L9.165 9.550L9.618 8.982Z'/%3E%3C/svg%3E")}
 /* Chinees: de letters van de site hebben geen Chinese tekens, dus de Chinese letter van het apparaat, zonder krappe spatiëring */
 :root:lang(zh){
   --display:'Archivo',"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Noto Sans CJK SC",system-ui,sans-serif;
