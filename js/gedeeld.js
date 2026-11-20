@@ -57,9 +57,18 @@ var ONS_MAILADRES = 'info@muurslot.com';
    2. zet in de voorwaarden bij Wie wij zijn je KvK-nummer en btw-id,
    3. zet "availability": "https://schema.org/InStock" terug in de gegevens voor Google in index.html,
    4. zet in 404.html "en kun je bestellen" terug,
-   5. haal de melding boven aan elke pagina weg (de regel met class dicht-balk, voor het menu).
+   5. haal de melding boven aan elke pagina weg (de regel met class dicht-balk, voor het menu),
+   6. vul hieronder BEDRIJF en HUUR_KOSTEN in en kies HUUR_INDEXATIE: die staan in de huurovereenkomst.
 ------------------------------------------------------------------ */
 var BESTELLEN_OPEN = false;
+
+/* ---------- gegevens in de huurovereenkomst (DOCS.ho) ----------
+   Leeg = in de overeenkomst staat '[nog in te vullen]'. Bedragen met euroteken, zoals '€7,50'.
+   Verander je iets aan de tekst van de overeenkomst, zet dan ook een nieuwe HUUR_VERSIE. */
+var BEDRIJF = {naam: '', adres: '', kvk: '', btw: ''};
+var HUUR_KOSTEN = {storno: '', herstel: '', weghalen: ''};   /* onterechte storno, herstel na diefstalpoging, anker en slot weggehaald */
+var HUUR_INDEXATIE = false;   /* true = de huur stijgt elk jaar op 1 januari mee met de prijsindex van het CBS */
+var HUUR_VERSIE = '20 november 2026';
 
 /* ---------- scrollen ---------- */
 function scrollNaar(el){
@@ -122,7 +131,7 @@ var DOCS = {
     + '<p><b>Wie wij zijn.</b> Muurslot, Sassenheim, info@muurslot.com.</p>'
     + '<p><b>Wat wij doen.</b> Wij leveren en monteren een ART-4 muuranker op een door jou aangewezen plek, en verkopen kettingsloten en kabelsloten. Anker en slot kun je kopen of huren. Alle prijzen zijn inclusief btw.</p>'
     + '<p><b>Betaling.</b> Na je bestelling krijg je een betaallink per e-mail. Je kiest uit drie vormen. <b>In één keer</b> met iDEAL; na de montage ben je eigenaar van het anker. <b>In drie termijnen via in3</b>: eerst het eerste deel, de rest na 30 en 60 dagen. Je sluit daarvoor een overeenkomst met in3, dat de betaling afhandelt. <b>Huur</b>: de montage is gratis; je betaalt een vast bedrag per maand via automatische incasso, te beginnen met de eerste maand. Dat maandbedrag staat bij je bestelling vermeld.</p>'
-    + '<p><b>Huur.</b> De huur geldt voor minimaal 36 maanden en loopt daarna voor onbepaalde tijd door, maandelijks opzegbaar met een opzegtermijn van één maand. Anker en slot blijven eigendom van Muurslot; je kunt ze niet overnemen. Zeg je op, dan halen wij anker en slot op; daarvoor rekenen wij eenmalig €25. Verhuis je, dan kan de huur worden overgedragen aan de nieuwe bewoner. Wordt een maandbedrag niet betaald, dan sturen wij eerst een herinnering met een termijn van veertien dagen voordat wij incassokosten in rekening brengen, zoals de wet voorschrijft.</p>'
+    + '<p><b>Huur.</b> De huur geldt voor minimaal 36 maanden en loopt daarna voor onbepaalde tijd door, maandelijks opzegbaar met een opzegtermijn van één maand. Anker en slot blijven eigendom van Muurslot; je kunt ze niet overnemen. Zeg je op, dan halen wij anker en slot op; daarvoor rekenen wij eenmalig €25. Verhuis je, dan kan de huur worden overgedragen aan de nieuwe bewoner. Wordt een maandbedrag niet betaald, dan sturen wij eerst een herinnering met een termijn van veertien dagen voordat wij incassokosten in rekening brengen, zoals de wet voorschrijft. Bij huur geldt ook de huurovereenkomst die je bij het bestellen te zien krijgt; bij verschil gaat die voor.</p>'
     + '<p><b>Terugbetaling.</b> Kan het anker niet worden geplaatst op de plek die jij aanwees, of herroep je vóór de montage, dan betalen wij het volledige bedrag binnen veertien dagen terug.</p>'
     + '<p><b>Uitvoering.</b> Wij bepalen ter plekke welke bevestiging de ondergrond nodig heeft, mechanisch of chemisch, zonder meerprijs. Wij spreken de montagedag vooraf met je af. Je hoeft niet thuis te zijn. Blijkt de ondergrond op de door jou aangewezen plek ongeschikt, dan monteren wij niet en krijg je je geld volledig terug.</p>'
     + '<p><b>Leidingen en bedrading.</b> Jij wijst de plek aan en kent je eigen woning. Geef bij je opdracht door of er water, gas of elektra door die muur loopt. Wij beschikken niet over detectieapparatuur en gaan af op jouw opgave en op wat ter plekke zichtbaar is.</p>'
@@ -154,9 +163,32 @@ var DOCS = {
     + '<p class="ak-err" id="hf-err" hidden></p>'
     + '<button type="button" class="btn" id="hf-ok">Herroeping bevestigen</button>'
     + '</div><div class="done" id="hf-klaar" role="status"></div>'
-    + '<p class="hint">Liever per mail? Stuur je naam, adres en bestelnummer naar <b>info@muurslot.com</b> met de zin: <i>"Ik herroep de overeenkomst."</i></p>']
+    + '<p class="hint">Liever per mail? Stuur je naam, adres en bestelnummer naar <b>info@muurslot.com</b> met de zin: <i>"Ik herroep de overeenkomst."</i></p>'],
+
+  /* De huurovereenkomst. {naam} en de andere invulplekken vult js/bestellen.js in met de bestelling (functie huurInvullen).
+     Per taal staat dezelfde tekst in js/taal/<taal>.js; de Nederlandse tekst is bindend.
+     De bevestigingsmail (netlify/functions/submission-created.js) leest deze tekst ook, om te controleren dat wat de site
+     meestuurt echt deze overeenkomst is. Houd DOCS daarom bij gewone tekst, zonder variabelen erin. */
+  ho: ['Huurovereenkomst', ''
+    + '<p><b>Partijen.</b> {bedrijf}, gevestigd {vestiging}, KvK {kvk}, btw {btw}, hierna Muurslot. En {naam}, {adres}, {email}, hierna de huurder.</p>'
+    + '<p><b>1. Wat je huurt.</b> Muurslot plaatst op {adres} {ankers} {slotzin} en verhuurt die aan de huurder. Montage, voorrijden en een gedateerd fotoverslag voor je verzekeraar zijn inbegrepen.</p>'
+    + '<p><b>2. Van wie het is.</b> Anker en slot blijven van Muurslot. Je wordt nooit eigenaar en hebt geen recht om te kopen.</p>'
+    + '<p><b>3. Prijs en betalen.</b> De huur is {maand} per maand, inclusief btw. De eerste maand betaal je met iDEAL bij het afsluiten. Daarmee geef je Muurslot toestemming om elke volgende maand het bedrag af te schrijven (SEPA-incasso). Je hoort minstens vijf dagen vooraf wanneer er wordt afgeschreven. Boek je een afschrijving terug die klopte, dan betaal je de kosten die wij daardoor maken: {storno} per keer.<span class="huur-index"> De huur stijgt elk jaar op 1 januari met de consumentenprijsindex van het CBS, voor het eerst als de huur een jaar loopt.</span></p>'
+    + '<p><b>4. Looptijd en opzeggen.</b> De huur loopt minimaal 36 maanden, samen {totaal36}. Je kiest daar zelf voor: in plaats van huren kun je dit ook in één keer kopen voor {koop}. Eerder opzeggen kan niet: zeg je op, dan loopt de huur door tot het einde van de 36 maanden en betaal je tot dan elke maand. Daarna loopt de huur per maand door, met een maand opzegtermijn. Opzeggen doe je per e-mail aan info@muurslot.com.</p>'
+    + '<p><b>5. Bedenktijd.</b> Je hebt veertien dagen bedenktijd. Vroeg je ons uitdrukkelijk om binnen die termijn te monteren en zeg je daarna op, dan betaal je alleen de huur over de dagen dat het anker er hing.</p>'
+    + '<p><b>6. De plek.</b> Je verklaart dat je eigenaar bent van de muur of vloer, of toestemming hebt van de eigenaar. Kan het anker niet op de gekozen plek, dan monteren wij niet en krijg je je geld terug.</p>'
+    + '<p><b>7. Gebruik en schade.</b> Je gebruikt anker en slot waarvoor ze bedoeld zijn. Schade door verkeerd gebruik, door jou of door iemand aan wie je toegang geeft, betaal jij. Schade door een poging tot diefstal herstellen wij voor {herstel} per keer. Raakt het anker los door onze montage, dan herstellen wij het zonder kosten.</p>'
+    + '<p><b>8. Verhuizen of verkopen.</b> Verhuis je of verkoop je het huis, dan kan de nieuwe bewoner de huur overnemen door te tekenen. Doet die dat niet, dan loopt jouw huur door tot het einde van de 36 maanden. Je haalt het anker niet zelf weg en laat dat ook niemand anders doen. Gebeurt dat toch, dan loopt de huur door en betaal je {weghalen} voor anker en slot.</p>'
+    + '<p><b>9. Einde.</b> Na het einde halen wij anker en slot op. Dat kost {ophalen}, voor jouw rekening. Geef je ons geen toegang, dan loopt de huur door tot wij het hebben opgehaald.</p>'
+    + '<p><b>10. Niet betalen.</b> Mislukt een afschrijving, dan krijg je een betaallink. Betaal je na de aanmaning niet binnen veertien dagen, dan geven wij de vordering uit handen aan een gerechtsdeurwaarder of incassobureau, en komen de wettelijke incassokosten en de wettelijke rente voor jouw rekening. Na twee maanden achterstand mag Muurslot de huur ontbinden. Je betaalt dan de achterstand, {ophalen} voor het ophalen en de schade door het einde van de huur: de huur die wij tot het einde van de 36 maanden mislopen, min wat wij daardoor besparen.</p>'
+    + '<p><b>11. Aansprakelijkheid.</b> Muurslot is alleen aansprakelijk voor schade die wij bij de montage aanrichten, tot het bedrag dat onze verzekering daarvoor uitkeert, behalve bij opzet of grove schuld. Wij zijn niet aansprakelijk als je voertuig toch wordt gestolen: het anker maakt diefstal moeilijker, niet onmogelijk.</p>'
+    + '<p><b>12. Overdracht.</b> Muurslot mag haar vorderingen op jou overdragen aan een ander, zoals een gerechtsdeurwaarder of incassobureau.</p>'
+    + '<p><b>13. Voorwaarden en recht.</b> De algemene voorwaarden en de privacyverklaring horen bij deze overeenkomst; bij verschil gaat deze overeenkomst voor. Nederlands recht is van toepassing.</p>'
+    + '<p><b>Akkoord.</b> Je gaat akkoord door bij het bestellen het vakje voor de huur aan te vinken. Daarna krijg je deze overeenkomst per e-mail. Versie van {versie}.</p>']
 };
-/* in een andere taal komen voorwaarden, privacy en herroepen uit de woordenlijst van die taal */
+/* in een andere taal komen voorwaarden, privacy en herroepen uit de woordenlijst van die taal;
+   de Nederlandse teksten blijven bewaard, want de Nederlandse huurovereenkomst is bindend en gaat mee met de bestelling */
+var DOCS_NL = DOCS;
 if(window.VERTALING_DOCS) DOCS = window.VERTALING_DOCS;
 
 var modal = byId('modal');
@@ -166,7 +198,7 @@ document.addEventListener('click', function(e){
   var d = DOCS[k.dataset.doc];
   if(!d) return;
   byId('modal-t').textContent = d[0];
-  byId('modal-in').innerHTML = d[1];
+  byId('modal-in').innerHTML = (k.dataset.doc === 'ho' && window.vulHuur) ? window.vulHuur(d[1]) : d[1];
   modal.hidden = false;
   document.body.style.overflow = 'hidden';
   byId('modal-x').focus();

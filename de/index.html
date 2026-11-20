@@ -381,6 +381,10 @@
 <input id="ak-vw" type="checkbox"/>
 <span>Ich stimme den <button class="inline-link" data-doc="vw" type="button">Allgemeinen Geschäftsbedingungen</button> und der <button class="inline-link" data-doc="pv" type="button">Datenschutzerklärung</button> zu.</span>
 </label>
+<label class="vink" hidden="" id="ak-huur-rij">
+<input id="ak-huur" type="checkbox"/>
+<span>Ich miete mindestens 36 Monate und stimme dem <button class="inline-link" data-doc="ho" type="button">Mietvertrag</button> zu. Muurslot darf die Miete jeden Monat von meinem Konto abbuchen.</span>
+</label>
 <p class="ak-err" hidden="" id="ak-err"></p>
 </div>
 <div class="eind">
@@ -471,7 +475,7 @@
 <p class="kijk-fout" hidden="" id="kijk-fout">Das Video kann gerade nicht geladen werden. Versuch es später noch einmal.</p>
 </div>
 <!-- Voor Netlify Forms: deze verborgen formulieren vertellen Netlify welke velden binnenkomen. Niet weghalen. -->
-<form data-netlify="true" enctype="multipart/form-data" hidden="" name="bestelling" netlify-honeypot="bot-field"><input name="bot-field"/><input name="naam"/><input name="telefoon"/><input name="email"/><input name="adres"/><input name="postcode"/><input name="voertuig"/><input name="ankers"/><input name="betaling"/><input name="slotId"/><input name="slot"/><input name="totaal"/><input name="toestemming"/><input name="akkoord"/><input name="plek"/><input name="plek2"/><input name="lengte"/><input name="kruisje"/><input name="kruisje2"/><input name="taal"/><input name="overzicht"/><input name="foto1" type="file"/><input name="foto2" type="file"/></form>
+<form data-netlify="true" enctype="multipart/form-data" hidden="" name="bestelling" netlify-honeypot="bot-field"><input name="bot-field"/><input name="naam"/><input name="telefoon"/><input name="email"/><input name="adres"/><input name="postcode"/><input name="voertuig"/><input name="ankers"/><input name="betaling"/><input name="slotId"/><input name="slot"/><input name="totaal"/><input name="toestemming"/><input name="akkoord"/><input name="huurakkoord"/><textarea name="huurcontract"></textarea><textarea name="huurcontract_klant"></textarea><input name="plek"/><input name="plek2"/><input name="lengte"/><input name="kruisje"/><input name="kruisje2"/><input name="taal"/><input name="overzicht"/><input name="foto1" type="file"/><input name="foto2" type="file"/></form>
 <form data-netlify="true" hidden="" name="herroeping" netlify-honeypot="bot-field"><input name="bot-field"/><input name="soort"/><input name="naam"/><input name="bestelling"/><input name="email"/><input name="moment"/><input name="taal"/></form>
 <form data-netlify="true" hidden="" name="dealer" netlify-honeypot="bot-field"><input name="bot-field"/><input name="dealercode"/><input name="zaak"/><input name="klant"/><textarea name="opdracht"></textarea></form>
 <form data-netlify="true" hidden="" name="inschrijving" netlify-honeypot="bot-field"><input name="bot-field"/><input name="naam"/><input name="postcode"/><input name="email"/><input name="voertuig"/><input name="taal"/></form>

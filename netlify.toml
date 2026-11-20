@@ -1,6 +1,11 @@
 [functions]
   directory = "netlify/functions"
 
+# De bevestigingsmail stuurt de huurovereenkomst alleen mee als het onze eigen tekst is.
+# Daarvoor leest die functie de teksten van de site zelf.
+[functions.submission-created]
+  included_files = ["js/gedeeld.js", "js/taal/*.js"]
+
 # Foto's en filmpjes: een bezoeker die terugkomt hoeft ze niet opnieuw te laden.
 # De tijden zijn kort gehouden omdat dezelfde bestandsnaam soms een nieuw filmpje krijgt.
 [[headers]]

@@ -246,16 +246,58 @@ function verzamel(){
     kruisje2: tweeAan ? PLEK[1].kruisTekst() : ''
   }; });
   d.taal = TAAL;
+  if(betaalwijze === 'huur'){
+    d.huurakkoord = (byId('ak-huur') && byId('ak-huur').checked)
+      ? 'Klant ging akkoord met de huurovereenkomst (versie ' + HUUR_VERSIE + ') en de maandelijkse afschrijving. Aangevinkt op '
+        + new Date().toLocaleString('nl-NL') + '.'
+      : 'NIET aangevinkt';
+    d.huurcontract = huurAlsTekst(DOCS_NL.ho, true);
+    if(TAAL !== 'nl') d.huurcontract_klant = huurAlsTekst(DOCS.ho, false);
+  }
+  /* bij huur is er geen totaal om te betalen; het maandbedrag staat bij Betaling, net als in de controle op de site */
   d.overzicht = [
     t('Voertuig') + DUBBELEPUNT + (huidig ? t(huidig.naam) : t('niet opgegeven')),
     t('Slot') + DUBBELEPUNT + slotKlant(gekozenSlot),
-    t('Totaal') + DUBBELEPUNT + euro(totaal()),
+    betaalwijze === 'huur' ? '' : t('Totaal') + DUBBELEPUNT + euro(totaal()),
     t('Betaling') + DUBBELEPUNT + betaalTekst()
-  ].join('\n');
+  ].filter(Boolean).join('\n');
   return d;
 }
 /* het slot zoals de klant het leest */
 function slotKlant(sl){ return sl && sl.prijs ? slotNaam(sl) + ' — ' + euro(sl.prijs) : t('geen'); }
+
+/* ---------- huurovereenkomst ----------
+   Vult de tekst uit DOCS.ho (gedeeld.js, per taal js/taal) in met deze bestelling.
+   nl = true geeft de Nederlandse, bindende tekst met Nederlandse bedragen; die gaat mee met de bestelling. */
+function veilig(s){ return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+function huurInvullen(tekst, nl){
+  var T = nl ? function(s){ return s; } : t;
+  function invul(s, w){ s = T(s); for(var k in w) s = s.split('{' + k + '}').join(w[k]); return s; }
+  function bedrag(n){ return nl ? opNL(function(){ return euro(n); }) : euro(n); }
+  var nog = '[' + T('nog in te vullen') + ']';
+  var sloten = [gekozenSlot, tweeAan ? gekozenSlot2 : null]
+    .filter(function(sl){ return sl && sl.prijs; })
+    .map(function(sl){ return slotNaam(sl, nl); });
+  var adres = [byId('f-adres').value.trim(), byId('f-pc').value.trim()].filter(Boolean).join(', ');
+  var w = {
+    bedrijf: BEDRIJF.naam || nog, vestiging: BEDRIJF.adres || nog, kvk: BEDRIJF.kvk || nog, btw: BEDRIJF.btw || nog,
+    naam: byId('f-naam').value.trim() || nog, adres: adres || nog, email: byId('f-mail').value.trim() || nog,
+    ankers: T(tweeAan ? 'twee ART-4 muurankers' : 'één ART-4 muuranker'),
+    slotzin: sloten.length ? invul('met {slot}', {slot: sloten.join(' + ')}) : T('zonder slot'),
+    maand: bedrag(huurPm()), totaal36: bedrag(huurCt(totaalCt()) * 36 / 100), koop: bedrag(totaal()),
+    storno: HUUR_KOSTEN.storno || nog, herstel: HUUR_KOSTEN.herstel || nog, weghalen: HUUR_KOSTEN.weghalen || nog,
+    ophalen: bedrag(HUUR_OPHALEN), versie: HUUR_VERSIE
+  };
+  if(!HUUR_INDEXATIE) tekst = tekst.replace(/<span class="huur-index">[\s\S]*?<\/span>/g, '');
+  return tekst.replace(/\{(\w+)\}/g, function(m, k){ return Object.prototype.hasOwnProperty.call(w, k) ? veilig(w[k]) : m; });
+}
+window.vulHuur = function(tekst){ return huurInvullen(tekst, false); };
+/* de overeenkomst als gewone tekst, voor de bestelling en de bevestigingsmail */
+function huurAlsTekst(doc, nl){
+  var div = document.createElement('div');
+  div.innerHTML = huurInvullen(doc[1], nl).replace(/<\/p>/g, '</p>\n\n');
+  return (doc[0] + '\n\n' + div.textContent).replace(/\n{3,}/g, '\n\n').trim();
+}
 
 function mailLink(d){
   var regels = [
@@ -272,6 +314,7 @@ function mailLink(d){
     '',
     'Akkoord: '         + d.akkoord,
     'Toestemming muur: '+ d.toestemming,
+    d.huurakkoord ? 'Huurovereenkomst: ' + d.huurakkoord : '',
     'Plek 1: '          + d.plek,
     'Kruisje plek 1: '  + d.kruisje,
     '',
@@ -509,6 +552,9 @@ function vulCheck(){
   if(tweeAan) r.push([t('Plek 2'), plekTekst(PLEK[1]) + ' — ' + fotoTekst(PLEK[1])]);
   byId('check').innerHTML = r.map(function(x){
     return '<div><span>' + x[0] + '</span><b>' + x[1] + '</b></div>'; }).join('');
+  var huur = betaalwijze === 'huur';
+  byId('ak-huur-rij').hidden = !huur;
+  if(!huur) byId('ak-huur').checked = false;
   knoppen();
 }
 
@@ -717,12 +763,14 @@ byId('naar3').addEventListener('click', function(){
 
 byId('betaal').addEventListener('click', function(){
   if(!BESTELLEN_OPEN) return;   /* bestellen staat uit (zie gedeeld.js): er wordt niets verstuurd */
-  if(!byId('ak-start').checked || !byId('ak-vw').checked){
+  var mist = !byId('ak-start').checked ? 'ak-start' : !byId('ak-vw').checked ? 'ak-vw'
+    : (betaalwijze === 'huur' && !byId('ak-huur').checked) ? 'ak-huur' : '';
+  if(mist){
     byId('ak-err').hidden = false;
-    byId('ak-err').textContent = !byId('ak-start').checked
+    byId('ak-err').textContent = mist === 'ak-start'
       ? t('Zet nog even een vinkje bij de eerste regel. Zonder dat verzoek mogen we niet binnen veertien dagen komen monteren.')
-      : t('Zet nog even een vinkje bij de voorwaarden.');
-    (byId('ak-start').checked ? byId('ak-vw') : byId('ak-start')).focus();
+      : mist === 'ak-vw' ? t('Zet nog even een vinkje bij de voorwaarden.') : t('Zet nog even een vinkje bij de huurovereenkomst.');
+    byId(mist).focus();
     return;
   }
   byId('ak-err').hidden = true;
