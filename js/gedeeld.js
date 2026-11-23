@@ -34,14 +34,14 @@ document.addEventListener('click', function(e){
 
 /* ------------------------------------------------------------------
    Waar aanvragen heen gaan.
-   '/' = Netlify Forms. Bestellingen, dealeropdrachten en herroepingen
-   komen binnen in Netlify onder Forms, met een mail naar jou als je dat
-   daar aanzet. De verborgen formulieren onderaan de pagina vertellen
-   Netlify welke velden er zijn. Lukt het versturen niet, dan opent het
+   '/api/formulier' = de formulierfunctie op Cloudflare (cloudflare/formulier.js).
+   Bestellingen, dealeropdrachten, herroepingen en inschrijvingen komen
+   als mail binnen op info@muurslot.com, de klant krijgt bij een bestelling
+   of herroeping zijn bevestiging. Lukt het versturen niet, dan opent het
    mailprogramma van de klant met alles al ingevuld.
    Leeg laten = altijd via het mailprogramma.
 ------------------------------------------------------------------ */
-var FORM_ENDPOINT   = '/';
+var FORM_ENDPOINT   = '/api/formulier';
 var BETAAL_ENDPOINT = '';
 /* Hier komt het adres van de Mollie-koppeling (iDEAL, in3 en de eerste huurbetaling).
    Zolang dit leeg is, komt de bestelling per mail binnen en stuur je zelf een betaallink. */

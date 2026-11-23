@@ -953,8 +953,8 @@ function toonAdvFilm(voertuig){
 
 /* ---------- inschrijving zolang bestellen dicht is ----------
    Op de plek van de bestelknop: naam, postcode en e-mail, met het voertuig dat de bezoeker koos.
-   Gaat naar Netlify Forms (formulier 'inschrijving'). Op de site staat dat we alleen hierover mailen
-   en de gegevens hoogstens een jaar bewaren: wis inschrijvingen in Netlify dus na een jaar. */
+   Komt als mail binnen op info@muurslot.com (formulier 'inschrijving'). Op de site staat dat we alleen hierover mailen
+   en de gegevens hoogstens een jaar bewaren: wis deze mails en de lijst die je ervan maakt dus na een jaar. */
 (function(){
   var knop = byId('ins-ok');
   if(!knop || BESTELLEN_OPEN) return;
